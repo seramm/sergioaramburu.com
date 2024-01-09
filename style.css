@@ -31,10 +31,9 @@ body {
   }
 }
 
-#image {
+img {
   max-width: 75%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 #main-container {
