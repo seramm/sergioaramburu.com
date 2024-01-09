@@ -31,7 +31,7 @@ body {
   }
 }
 
-img {
+#image {
   max-width: 75%;
   border-radius: 10px;
 }
