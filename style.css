@@ -31,7 +31,9 @@ body {
   }
 }
 
-#image {
+/* <!-- --------------------> */
+
+img {
   max-width: 75%;
   border-radius: 10px;
 }
@@ -41,6 +43,7 @@ body {
   display: flex;
   width: 100vw;
   height: 100vh;
+  margin-bottom: 250px;
 }
 
 #title-col {
@@ -60,4 +63,27 @@ body {
   margin: auto;
   justify-content: center;
   align-items: center;
+}
+
+/* #sticky-card { */
+/*   position: sticky; */
+/*   top: 0%; */
+/*   margin: 50px; */
+/*   width: 30rem; */
+/*   transform: translate(-2px); */
+/* } */
+/**/
+/* #sticky-col { */
+/*   display: flex; */
+/*   justify-content: space-around; */
+/*   align-items: flex-start; */
+/* } */
+
+
+#floater {}
+
+/* Foteer */
+
+.footer {
+  margin-top: 250px;
 }
