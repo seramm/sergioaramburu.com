@@ -14,11 +14,6 @@ html {
 /**/
 
 body {
-  background: linear-gradient(-45deg, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 200% 200%;
-  animation: gradient 60s ease;
-  height: 100vh;
-  width: 100vw;
 }
 
 @keyframes gradient {
@@ -41,9 +36,12 @@ img {
 #main-container {
   margin: 0;
   display: flex;
-  width: 100vw;
-  height: 100vh;
   margin-bottom: 250px;
+  background: linear-gradient(-45deg, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 200% 200%;
+  animation: gradient 60s ease;
+  height: 100vh;
+  width: 100vw;
 }
 
 #title-col {
@@ -65,22 +63,21 @@ img {
   align-items: center;
 }
 
-/* #sticky-card { */
-/*   position: sticky; */
-/*   top: 0%; */
-/*   margin: 50px; */
-/*   width: 30rem; */
-/*   transform: translate(-2px); */
-/* } */
-/**/
-/* #sticky-col { */
-/*   display: flex; */
-/*   justify-content: space-around; */
-/*   align-items: flex-start; */
-/* } */
+#images {
+  justify-content: center;
+  margin-left: 250px;
+  margin-right: 250px;
+}
 
+#images col {
+  width: 33%;
+  box-sizing: border-box;
+}
 
-#floater {}
+#images img {
+  width: auto;
+  height: auto;
+}
 
 /* Foteer */
 

@@ -24,22 +24,14 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid" id="someshit">
+    <div class="container-fluid text-center" id="images">
       <div class="row">
-        <div class="col" id="sticky-col">
-          <div class="card" id="floater">
-            <div class="card-body">
-              <h4 class="card-title">Fotografía</h4>
-              <p class="card-text">
-                Soy un apasionado de la fotografía. Actualmente formar parte del
-                equipo de Formula Student UVigo Motorsport me permite
-                desarrollar mis habilidades en este ámbito con mucha facilidad.
-              </p>
-            </div>
-          </div>
-        </div>
         <div class="col">
-          <img src="img/_5191672.jpg" id="image" />
+          <img src="img/_5191710.jpg" />
+        </div>
+        <div class="col"></div>
+        <div class="col">
+          <img src="img/_5191672.jpg" />
         </div>
       </div>
     </div>
@@ -52,32 +44,22 @@
     </div>
 
     <script>
-        function getCenterPosition(elementId) {
-        var element = document.getElementById(elementId);
+      // Assuming you have images in the 'img/' folder with filenames like '1.jpg', '2.jpg', etc.
+      var numberOfImages = 2; // Adjust this based on the number of images in the 'img/' folder
 
-        if (element) {
-          var elementRect = element.getBoundingClientRect();
-          var centerY = elementRect.top + elementRect.height / 2;
+      for (var i = 1; i <= numberOfImages; i++) {
+        var imageUrl = "img/" + i + ".jpg"; // Adjust the file extension as needed
 
-          return centerY ;
-        } else {
-          console.error('Element with ID ' + elementId + ' not found.');
-          return null;
-        }
+        // Create an image element
+        var img = document.createElement("img");
+        img.src = imageUrl;
+
+        // Append the image to one of the columns (alternating between columns)
+        var columnId = "column" + ((i % 3) + 1);
+        document.getElementById(columnId).appendChild(img);
       }
+    </script>
 
-
-      function parallax() {
-        var s = document.getElementById("floater");
-        var centerpoint = getCenterPosition("someshit");
-        var yPos = (centerpoint - window.pageYOffset) / 20;
-        s.style.top = 50 + yPos + "%";
-      }
-
-      window.addEventListener("scroll", function () {
-        parallax();
-      });
-  </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
