@@ -24,14 +24,22 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid text-center" id="images">
+    <div class="container-fluid" id="seconday-container">
       <div class="row">
-        <div class="col">
-          <img src="img/_5191710.jpg" />
+        <div class="col" id="sticky-col">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Fotografía</h4>
+              <p class="card-text">
+                Soy un apasionado de la fotografía. Actualmente formar parte del
+                equipo de Formula Student UVigo Motorsport me permite
+                desarrollar mis habilidades en este ámbito con mucha facilidad.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="col"></div>
         <div class="col">
-          <img src="img/_5191672.jpg" />
+          <img src="img/_5191672.jpg" id="image" />
         </div>
       </div>
     </div>
@@ -42,23 +50,6 @@
         <p class="text-center text-body-secondary">Página en construcción</p>
       </footer>
     </div>
-
-    <script>
-      // Assuming you have images in the 'img/' folder with filenames like '1.jpg', '2.jpg', etc.
-      var numberOfImages = 2; // Adjust this based on the number of images in the 'img/' folder
-
-      for (var i = 1; i <= numberOfImages; i++) {
-        var imageUrl = "img/" + i + ".jpg"; // Adjust the file extension as needed
-
-        // Create an image element
-        var img = document.createElement("img");
-        img.src = imageUrl;
-
-        // Append the image to one of the columns (alternating between columns)
-        var columnId = "column" + ((i % 3) + 1);
-        document.getElementById(columnId).appendChild(img);
-      }
-    </script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
