@@ -91,7 +91,8 @@ img {
   text-align: left;
   margin: auto;
   position: relative;
-  width: 50%;
+  width: auto;
+  height: auto;
 }
 
 .mycol {
