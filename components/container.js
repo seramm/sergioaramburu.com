@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 import Footer from '../components/footer'
 import React from 'react'
 
-const Container = ({children, gradient}) => {
+const Container = ({ children }) => {
   return (
     <Box>
       <Box maxWidth="6xl" marginX="auto" paddingX="6">

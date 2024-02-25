@@ -1,5 +1,4 @@
-import { HStack, Icon, SystemProps, Text } from '@chakra-ui/react'
-import { ElementType } from 'react'
+import { HStack, Icon, Text } from '@chakra-ui/react'
 
 const LinkItem = ({ children, icon, href }) => {
   return (

@@ -1,5 +1,3 @@
-import { SVGProps } from 'react'
-
 const GitHubIcon = () => {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24">
@@ -10,7 +8,7 @@ const GitHubIcon = () => {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }
 
 export default GitHubIcon

@@ -12,8 +12,7 @@ const Page = () => {
           </Heading>
           <p>Computer Science Student</p>
         </Box>
-        <Box
-        >
+        <Box>
           <Box
             borderColor="whiteAlpha.800"
             borderWidth={2}
