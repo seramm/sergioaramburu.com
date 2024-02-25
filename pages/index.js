@@ -1,18 +1,36 @@
-import { Container, Box, Heading } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
+import Container from '../components/container'
+import Image from 'next/image'
 
 const Page = () => {
   return (
     <Container>
-      <Box borderRadius="lg" bg="blue" p={3} mb={6} align="center">
-        Computer Science Engineering student based in Galicia, Spain
-      </Box>
-
       <Box display={{ md: 'flex' }}>
         <Box flexGrow={1}>
-          <Heading as="h2" variant="page-title">
+          <Heading as="h2" variant="page-title" color="#ffffff">
             Sergio Aramburu
           </Heading>
           <p>Computer Science Student</p>
+        </Box>
+        <Box
+        >
+          <Box
+            borderColor="whiteAlpha.800"
+            borderWidth={2}
+            borderStyle="solid"
+            w="100px"
+            h="100px"
+            display="inline-block"
+            borderRadius="full"
+            overflow="hidden"
+          >
+            <Image
+              src="/images/profile.png"
+              width="100"
+              height="100"
+              alt="Profile"
+            />
+          </Box>
         </Box>
       </Box>
     </Container>
