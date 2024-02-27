@@ -10,14 +10,14 @@ const NavBar = props => {
         borderColor="whiteAlpha.800"
         borderWidth={2}
         borderStyle="solid"
-        w="50px"
-        h="50px"
+        w="75px"
+        h="75px"
         display="inline-block"
         borderRadius="full"
         overflow="hidden"
       >
         <Image
-          src="/images/profile.png"
+          src="/images/profile.jpg"
           width="100"
           height="100"
           alt="Profile"
