@@ -1,9 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import Image from 'next/image'
 
-const NavBar = props => {
-  const { path } = props
-
+const NavBar = () => {
   return (
     <Box as="header" paddingY="6" maxWidth="3xl" marginX="auto" paddingX="6">
       <Box
