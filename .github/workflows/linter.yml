@@ -2,11 +2,10 @@
 name: Lint
 
 on: # yamllint disable-line rule:truthy
-  push: null
-  pull_request: null
-  branches:
-    - '*'
-    - '!testing'
+  push:
+    branches-ignore:
+      - 'testing'
+    pull_request:
 
 jobs:
   build:
