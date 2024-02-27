@@ -5,7 +5,7 @@ const NavBar = props => {
   const { path } = props
 
   return (
-    <Box as="header" paddingY="6" maxWidth="4xl" marginX="auto" paddingX="6">
+    <Box as="header" paddingY="6" maxWidth="3xl" marginX="auto" paddingX="6">
       <Box
         borderColor="whiteAlpha.800"
         borderWidth={2}
