@@ -4,7 +4,7 @@ import theme from '../lib/theme'
 const Website = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+      <Component {...pageProps} />
     </ChakraProvider>
   )
 }
