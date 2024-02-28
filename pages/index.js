@@ -6,11 +6,16 @@ const Page = () => {
     <Container>
       <Box display={{ md: 'flex' }} py={9}>
         <Box flexGrow={1}>
-          <Heading as="h2" variant="page-title" color="#ffffff">
+          <Heading size="3xl" variant="page-title" color="#ffffff">
             Sergio Aramburu
           </Heading>
           <p>Computer Science Student</p>
         </Box>
+      </Box>
+      <Box py={9}>
+        <Heading size="2xl" variant="section" mt={9} color="#ffffff">
+          Projects
+        </Heading>
       </Box>
     </Container>
   )
