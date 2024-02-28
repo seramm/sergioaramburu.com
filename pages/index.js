@@ -1,5 +1,6 @@
-import { Box, Heading } from '@chakra-ui/react'
+import { Box, Divider, Heading } from '@chakra-ui/react'
 import Container from '../components/container'
+import Project from '../components/project'
 
 const Page = () => {
   return (
@@ -13,9 +14,11 @@ const Page = () => {
         </Box>
       </Box>
       <Box py={9}>
-        <Heading size="2xl" variant="section" mt={9} color="#ffffff">
+        <Divider />
+        <Heading size="2xl" variant="section" my={9} color="#ffffff">
           Projects
         </Heading>
+        <Project />
       </Box>
     </Container>
   )
