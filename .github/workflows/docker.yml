@@ -1,0 +1,21 @@
+---
+name: Docker deployment
+
+on:
+  push:
+    branches-ignore:
+      - 'testing'
+    pull_request:
+
+jobs:
+  build-nextjs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build docker image
+        run: docker build -t nextjs:latest -f Dockerfile .
