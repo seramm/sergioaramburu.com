@@ -7,7 +7,7 @@ const Page = () => {
     <Container>
       <Box display={{ md: 'flex' }} py={9}>
         <Box flexGrow={1}>
-          <Heading size="3xl" variant="page-title" color="#ffffff">
+          <Heading size="3xl" mb={1} variant="page-title" color="#ffffff">
             Sergio Aramburu
           </Heading>
           <p>Computer Science Student</p>
