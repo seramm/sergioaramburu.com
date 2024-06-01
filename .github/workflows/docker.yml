@@ -47,6 +47,6 @@ jobs:
           passphrase: ${{ secrets.SSH_PRIVATE_KEY_PASS }}
           script: |
             cd ~/website/ && \
-            (echo "${{secrets.USER_PASS }}" | sudo -S docker load -i nextjs.tar) && \
-            sudo docker load -i nginx.tar && \
-            sudo docker-compose up --force-recreate docker-compose-yml
+            (echo "${{ secrets.USER_PASS }}" | sudo -S docker load -i nextjs.tar) && \
+            (echo "${{ secrets.USER_PASS }}" | sudo -S docker load -i nginx.tar) && \
+            (echo "${{ secrets.USER_PASS }}" | sudo -S docker-compose up --force-recreate docker-compose-yml)
