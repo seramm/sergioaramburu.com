@@ -3,9 +3,8 @@ name: Docker deployment
 
 on:
   push:
-    branches-ignore:
-      - 'testing'
-    pull_request:
+    branches:
+      - 'main'
 
 jobs:
   docker:
