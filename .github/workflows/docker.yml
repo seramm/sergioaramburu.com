@@ -25,9 +25,8 @@ jobs:
 
       - name: Save Docker images
         run: |
-          docker save -o nextjs.tar nextjs && docker save -o nginx.tar nginx && \
-          tar cvf images.tar nextjs.tar nginx.tar && \
-          ls -alh .
+          docker save nextjs > nextjs.tar && \
+          docker save nginx > nginx.tar
 
       - name: Copy images to server
         uses: appleboy/scp-action@v0.1.7
@@ -36,7 +35,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PRIVATE_KEY_PASS }}
-          source: 'images.tar'
+          source: 'nextjs.tar,nginx.tar'
           target: /home/${{ secrets.SSH_USER }}/website/
 
       - name: SSH Action
@@ -47,5 +46,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PRIVATE_KEY_PASS }}
           script: |
-            cd ~/website/ && \
-            tar xf images.tar
+            cd ~/website/
