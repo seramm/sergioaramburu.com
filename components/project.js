@@ -24,7 +24,7 @@ const Project = () => {
           <Heading size="md">UVigo Motorsport</Heading>
 
           <Text py="2">
-            UVigo Motorsport is a Formula Student, which is part of the
+            UVigo Motorsport is a Formula Student team which is part of the
             University of Vigo. I am part of the Driverless team where we
             develop an Autonomous System to compete at Formula Student events.
           </Text>
