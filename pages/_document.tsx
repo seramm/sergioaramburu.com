@@ -6,7 +6,6 @@ const Document = () => {
       <Head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.gif" sizes="any" />
-        <title>Sergio Aramburu</title>
       </Head>
       <body>
         <Main />
