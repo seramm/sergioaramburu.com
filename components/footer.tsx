@@ -3,7 +3,7 @@ import LinkItem from './link-item'
 import siteConfig from '../data.ts'
 import { GitHubIcon, LinkedInIcon } from './icons'
 
-const Footer = () => {
+export default function Footer() {
   return (
     <Box as="footer" position="relative" paddingY="20">
       <Box maxWidth="3xl" marginX="auto" paddingX="6">
@@ -24,5 +24,3 @@ const Footer = () => {
     </Box>
   )
 }
-
-export default Footer

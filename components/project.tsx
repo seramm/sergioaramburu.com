@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 
-const Project = () => {
+export default function Project() {
   return (
     <Card
       direction={{ base: 'column', sm: 'row' }}
@@ -41,5 +41,3 @@ const Project = () => {
     </Card>
   )
 }
-
-export default Project

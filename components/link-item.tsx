@@ -1,6 +1,14 @@
 import { HStack, Icon, Text } from '@chakra-ui/react'
+import { ElementType } from 'react'
 
-const LinkItem = ({ children, icon, href }) => {
+type LinkItemProps = {
+  icon: ElementType
+  children: string
+  href: string
+}
+
+export default function LinkItem(props: LinkItemProps) {
+  const { icon, children, href } = props
   return (
     <HStack as="a" href={href} rel="noopener" target="_blank" spacing="3">
       <Icon aria-hidden as={icon} fontSize="xl" />
@@ -14,5 +22,3 @@ const LinkItem = ({ children, icon, href }) => {
     </HStack>
   )
 }
-
-export default LinkItem
