@@ -3,7 +3,7 @@ import Footer from '../components/footer'
 import NavBar from '../components/navbar'
 import React from 'react'
 
-export default function Container(children: React.ReactNode) {
+export default function Container({ children }: { children: React.ReactNode }) {
   return (
     <Box>
       <NavBar />
