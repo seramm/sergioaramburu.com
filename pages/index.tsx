@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Heading } from '@chakra-ui/react'
+import { Box, Divider, Heading } from '@chakra-ui/react'
 import Container from '../components/container'
 import Project from '../components/project'
 
