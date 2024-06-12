@@ -6,14 +6,14 @@ import {
   Link,
   Text,
   Heading,
-  Button
-} from '@chakra-ui/react'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+  Button,
+} from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 export default function Project() {
   return (
     <Card
-      direction={{ base: 'column', sm: 'row' }}
+      direction={{ base: "column", sm: "row" }}
       overflow="hidden"
       variant="outline"
       bg="#333842"
@@ -30,7 +30,7 @@ export default function Project() {
           </Text>
         </CardBody>
 
-        <CardFooter alignItems={'end'}>
+        <CardFooter alignItems={"end"}>
           <Button variant="ghost">
             <Link href="https://uvigomotorsport.com" color="#bbc2cf" isExternal>
               UVigo Motorsport <ExternalLinkIcon mx="2px" />
@@ -39,5 +39,5 @@ export default function Project() {
         </CardFooter>
       </Stack>
     </Card>
-  )
+  );
 }

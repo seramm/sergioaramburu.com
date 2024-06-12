@@ -1,11 +1,11 @@
-import { Box, Divider, Heading } from '@chakra-ui/react'
-import Container from '../components/container'
-import Project from '../components/project'
+import { Box, Divider, Heading } from "@chakra-ui/react";
+import Container from "../components/container";
+import Project from "../components/project";
 
 export default function Page() {
   return (
     <Container>
-      <Box display={{ md: 'flex' }} py={9}>
+      <Box display={{ md: "flex" }} py={9}>
         <Box flexGrow={1}>
           <Heading size="3xl" mb={1} variant="page-title" color="#ffffff">
             Sergio Aramburu
@@ -31,5 +31,5 @@ export default function Page() {
         <Project />
       </Box>
     </Container>
-  )
+  );
 }

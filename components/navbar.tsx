@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Box } from "@chakra-ui/react";
+import Image from "next/image";
 
 export default function NavBar() {
   return (
@@ -22,5 +22,5 @@ export default function NavBar() {
         />
       </Box>
     </Box>
-  )
+  );
 }
