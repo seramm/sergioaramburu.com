@@ -1,7 +1,7 @@
-import { Box } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Box } from "@chakra-ui/react";
+import Image from "next/image";
 
-const NavBar = () => {
+export default function NavBar() {
   return (
     <Box as="header" paddingY="6" maxWidth="3xl" marginX="auto" paddingX="6">
       <Box
@@ -22,7 +22,5 @@ const NavBar = () => {
         />
       </Box>
     </Box>
-  )
+  );
 }
-
-export default NavBar

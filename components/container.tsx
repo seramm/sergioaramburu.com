@@ -1,9 +1,9 @@
-import { Box } from '@chakra-ui/react'
-import Footer from '../components/footer'
-import NavBar from '../components/navbar'
-import React from 'react'
+import { Box } from "@chakra-ui/react";
+import Footer from "../components/footer";
+import NavBar from "../components/navbar";
+import React from "react";
 
-const Container = ({ children }) => {
+export default function Container({ children }: { children: React.ReactNode }) {
   return (
     <Box>
       <NavBar />
@@ -14,6 +14,5 @@ const Container = ({ children }) => {
       </Box>
       <Footer />
     </Box>
-  )
+  );
 }
-export default Container

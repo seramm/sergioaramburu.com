@@ -1,9 +1,9 @@
-import { Box, Heading, HStack } from '@chakra-ui/react'
-import LinkItem from './link-item'
-import siteConfig from '../data.js'
-import { GitHubIcon, LinkedInIcon } from './icons'
+import { Box, Heading, HStack } from "@chakra-ui/react";
+import LinkItem from "./link-item";
+import siteConfig from "../data.ts";
+import { GitHubIcon, LinkedInIcon } from "./icons";
 
-const Footer = () => {
+export default function Footer() {
   return (
     <Box as="footer" position="relative" paddingY="20">
       <Box maxWidth="3xl" marginX="auto" paddingX="6">
@@ -12,7 +12,7 @@ const Footer = () => {
             Sergio Aramburu
           </Heading>
         </Box>
-        <HStack marginTop="9" spacing={{ base: '8', md: '10' }}>
+        <HStack marginTop="9" spacing={{ base: "8", md: "10" }}>
           <LinkItem href={siteConfig.profiles.github} icon={GitHubIcon}>
             GitHub
           </LinkItem>
@@ -22,7 +22,5 @@ const Footer = () => {
         </HStack>
       </Box>
     </Box>
-  )
+  );
 }
-
-export default Footer

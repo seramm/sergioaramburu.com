@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import { Html, Head, Main, NextScript } from "next/document";
 
 const Document = () => {
   return (
@@ -6,14 +6,13 @@ const Document = () => {
       <Head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.gif" sizes="any" />
-        <title>Sergio Aramburu</title>
       </Head>
       <body>
         <Main />
         <NextScript />
       </body>
     </Html>
-  )
-}
+  );
+};
 
-export default Document
+export default Document;

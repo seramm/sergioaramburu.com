@@ -8,7 +8,7 @@ export function GitHubIcon() {
         fill="#fff"
       />
     </svg>
-  )
+  );
 }
 
 export function LinkedInIcon() {
@@ -19,5 +19,5 @@ export function LinkedInIcon() {
         fill="#fff"
       />
     </svg>
-  )
+  );
 }
