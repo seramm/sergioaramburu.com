@@ -1,6 +1,7 @@
 import { Box, Divider, Heading } from "@chakra-ui/react";
 import Container from "../components/container";
 import Project from "../components/project";
+import Gallery from "../components/gallery";
 
 export default function Page() {
   return (
@@ -29,6 +30,9 @@ export default function Page() {
           Projects
         </Heading>
         <Project />
+      </Box>
+      <Box>
+        <Gallery />
       </Box>
     </Container>
   );
