@@ -1,6 +1,6 @@
 import { Box, Divider, Heading } from "@chakra-ui/react";
-import Container from "../components/container";
-import Project from "../components/project";
+import Container from "components/container";
+import Project from "components/project";
 
 export default function Page() {
   return (

@@ -1,6 +1,6 @@
 import { Box, Heading, HStack } from "@chakra-ui/react";
 import LinkItem from "./link-item";
-import siteConfig from "../data.ts";
+import siteConfig from "data.ts";
 import { GitHubIcon, LinkedInIcon } from "./icons";
 
 export default function Footer() {
