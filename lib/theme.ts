@@ -12,8 +12,8 @@ const colors = {
     700: "#545d6d",
     800: "#5f6a7c",
     900: "#6a768a",
-  }
-}
+  },
+};
 const theme = {
   colors,
   styles: {
