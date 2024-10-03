@@ -8,7 +8,7 @@ export default function Page() {
       <NavBar />
       <Box marginX="auto" px={100}>
         <Box display={{ md: "flex" }} py={9}>
-          <Image src="/images/architecture.png" rounded="2xl" />
+          <Image alt="Homelab infrastructure"src="/images/architecture.png" rounded="2xl" />
         </Box>
       </Box>
       <Footer />
