@@ -1,9 +1,18 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
+import { ServerRackIcon } from "./icons";
 
 export default function NavBar() {
   return (
-    <Box as="header" paddingY="6" maxWidth="3xl" marginX="auto" paddingX="6">
+    <Flex
+      as="header"
+      paddingY="6"
+      maxWidth="3xl"
+      marginX="auto"
+      paddingX="6"
+      align="center"
+    >
       <Box
         borderColor="whiteAlpha.800"
         borderWidth={2}
@@ -21,6 +30,20 @@ export default function NavBar() {
           alt="Profile"
         />
       </Box>
-    </Box>
+      <Spacer />
+      <Box>
+        <HStack as="nav" display={{ base: "none", md: "flex" }}>
+          <HStack
+            as={Link}
+            href="architecture/"
+            rounded="lg"
+            _hover={{ color: "gray.900" }}
+          >
+            <ServerRackIcon />
+            <Text fontFamily="heading">Cloud</Text>
+          </HStack>
+        </HStack>
+      </Box>
+    </Flex>
   );
 }
