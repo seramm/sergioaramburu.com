@@ -14,3 +14,11 @@ services:
     volumes:
       - /etc/ssl:/etc/ssl:ro
     restart: always
+  fastapi:
+    image: fastapi:latest
+    container_name: fastapi
+    volumes:
+      - /srv/data:/srv/data
+    ports:
+      - "8081:80"
+    restart: always
