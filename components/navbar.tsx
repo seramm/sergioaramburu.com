@@ -144,12 +144,14 @@ export default function NavBar() {
         borderRadius="full"
         overflow="hidden"
       >
-        <Image
-          src="/images/profile.jpg"
-          width="100"
-          height="100"
-          alt="Profile"
-        />
+        <Link href="/">
+          <Image
+            src="/images/profile.jpg"
+            width="100"
+            height="100"
+            alt="Profile"
+          />
+        </Link>
       </Box>
       <Spacer />
       <NavbarItems />
