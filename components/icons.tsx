@@ -41,7 +41,7 @@ export function CloseIcon() {
 
 export function MenuIcon() {
   return (
-    <svg width="200px" height="200px" viewBox="0 0 20 20">
+    <svg width="30px" height="30px" viewBox="0 0 20 20">
       <path
         fill="#000000"
         fill-rule="evenodd"
