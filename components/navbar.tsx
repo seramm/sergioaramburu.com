@@ -6,14 +6,16 @@ import {
   Spacer,
   Text,
   useDisclosure,
-  Drawer,
-  DrawerOverlay,
+  DrawerBackdrop,
   DrawerContent,
   Center,
   Icon,
   StackProps,
   useBreakpointValue,
-  StackDivider,
+  StackSeparator,
+  DrawerRoot,
+  DrawerTrigger,
+  DrawerContext,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,17 +45,18 @@ function NavbarItem(props: NavbarItemProps) {
   const { children, data, active, large } = props;
   return (
     <HStack
-      as={Link}
-      href={data.href}
+      asChild
       rounded="lg"
-      spacing="2"
+      gap="2"
       paddingX="3"
       paddingY={large ? "5" : "2.5"}
       aria-current={active ? "page" : undefined}
       _hover={{ color: "gray.900" }}
     >
-      <Icon as={data.icon} fontSize="lg" />
-      <Text fontFamily="heading">{children}</Text>
+      <Link href={data.href}>
+        <Icon as={data.icon} fontSize="lg" />
+        <Text fontFamily="heading">{children}</Text>
+      </Link>
     </HStack>
   );
 }
@@ -78,9 +81,9 @@ function NavbarItems(props: StackProps) {
 function MobileNavbarItems(props: StackProps) {
   return (
     <Stack
-      divider={<StackDivider borderColor="gray.900" />}
+      separator={<StackSeparator borderColor="gray.900" />}
       as="nav"
-      spacing="0"
+      gap="0"
       {...props}
     >
       {items.map((item) => (
@@ -92,34 +95,68 @@ function MobileNavbarItems(props: StackProps) {
   );
 }
 
+// function MobileNavbar() {
+//   const menu = useDisclosure();
+//   const breakpoint = useBreakpointValue({ base: true, md: false });
+//
+//   useEffect(() => {
+//     if (menu.open && !breakpoint) {
+//       menu.onClose();
+//     }
+//   }, [breakpoint, menu]);
+//
+//   return (
+//     <>
+//       <Center
+//         width="10"
+//         height="10"
+//         display={{ base: "flex", md: "none" }}
+//         as="button"
+//         aria-expanded={menu.open}
+//         onClick={menu.onOpen}
+//       >
+//         {menu.open ? <CloseIcon /> : <MenuIcon />}
+//       </Center>
+//       <Drawer isOpen={menu.open} placement="bottom" onClose={menu.onClose}>
+//         <DrawerBackdrop />
+//         <DrawerContent id="nav-menu" bg="gray.200" padding="6">
+//           <MobileNavbarItems />
+//         </DrawerContent>
+//       </Drawer>
+//     </>
+//   );
+// }
+
 function MobileNavbar() {
   const menu = useDisclosure();
   const breakpoint = useBreakpointValue({ base: true, md: false });
 
   useEffect(() => {
-    if (menu.isOpen && !breakpoint) {
+    if (menu.open && !breakpoint) {
       menu.onClose();
     }
   }, [breakpoint, menu]);
 
   return (
     <>
-      <Center
-        width="10"
-        height="10"
-        display={{ base: "flex", md: "none" }}
-        as="button"
-        aria-expanded={menu.isOpen}
-        onClick={menu.onOpen}
-      >
-        {menu.isOpen ? <CloseIcon /> : <MenuIcon />}
-      </Center>
-      <Drawer isOpen={menu.isOpen} placement="bottom" onClose={menu.onClose}>
-        <DrawerOverlay />
+      <DrawerRoot placement="bottom">
+        <DrawerTrigger asChild>
+          <Center
+            width="10"
+            height="10"
+            display={{ base: "flex", md: "none" }}
+            as="button"
+          >
+            <DrawerContext>
+              {(drawer) => (drawer.open ? <CloseIcon /> : <MenuIcon />)}
+            </DrawerContext>
+          </Center>
+        </DrawerTrigger>
+        <DrawerBackdrop />
         <DrawerContent id="nav-menu" bg="gray.200" padding="6">
           <MobileNavbarItems />
         </DrawerContent>
-      </Drawer>
+      </DrawerRoot>
     </>
   );
 }

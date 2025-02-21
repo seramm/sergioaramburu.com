@@ -1,15 +1,45 @@
-import { Box, Divider, Heading } from "@chakra-ui/react";
+import { Box, Separator, Heading, HeadingProps } from "@chakra-ui/react";
 import Container from "components/container";
 import Project from "components/project";
+
+function HeadHeading(props: HeadingProps) {
+  return (
+    <Heading
+      width="full"
+      fontFamily="heading"
+      fontSize={{ base: "3rem", md: "4rem" }}
+      letterSpacing="tight"
+      lineHeight="1"
+      mb={1}
+      color="#ffffff"
+      {...props}
+    />
+  );
+}
+
+function SectionHeading(props: HeadingProps) {
+  return (
+    <Heading
+      size="5xl"
+      fontFamily="heading"
+      letterSpacing="tight"
+      lineHeight="1"
+      my={9}
+      color="#ffffff"
+      textDecoration="underline"
+      textDecorationColor="#8e9aaf"
+      textDecorationThickness="5px"
+      {...props}
+    />
+  );
+}
 
 export default function Page() {
   return (
     <Container>
       <Box display={{ md: "flex" }} py={9}>
         <Box flexGrow={1}>
-          <Heading size="3xl" mb={1} variant="page-title" color="#ffffff">
-            Sergio Aramburu
-          </Heading>
+          <HeadHeading>Sergio Aramburu</HeadHeading>
           <p>Computer Science Student</p>
         </Box>
       </Box>
@@ -24,10 +54,8 @@ export default function Page() {
         </p>
       </Box>
       <Box py={9}>
-        <Divider />
-        <Heading size="2xl" variant="section" my={9} color="#ffffff">
-          Projects
-        </Heading>
+        <Separator />
+        <SectionHeading>Projects</SectionHeading>
         <Project />
       </Box>
     </Container>

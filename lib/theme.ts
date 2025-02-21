@@ -1,40 +1,28 @@
-import { extendTheme } from "@chakra-ui/react";
+import { createSystem, defaultConfig } from "@chakra-ui/react";
 
-const colors = {
-  gray: {
-    50: "#070709",
-    100: "#121417",
-    200: "#1d2026",
-    300: "#282c34",
-    400: "#333842",
-    500: "#3e4451",
-    600: "#49515f",
-    700: "#545d6d",
-    800: "#5f6a7c",
-    900: "#6a768a",
-  },
-};
-const theme = {
-  colors,
-  styles: {
-    global: {
-      "html, body": {
-        bg: "gray.300",
-        color: "#bbc2cf",
-      },
-    },
-  },
-  components: {
-    Heading: {
-      variants: {
-        section: {
-          textDecoration: "underline",
-          textDecorationColor: "#8e9aaf",
-          textDecorationThickness: 5,
+export const system =  createSystem(defaultConfig, {
+  theme: {
+    tokens: {
+      colors: {
+        gray: {
+          50: { value: "#070709" },
+          100: { value: "#121417" },
+          200: { value: "#1d2026" },
+          300: { value: "#282c34" },
+          400: { value: "#333842" },
+          500: { value: "#3e4451" },
+          600: { value: "#49515f" },
+          700: { value: "#545d6d" },
+          800: { value: "#5f6a7c" },
+          900: { value: "#6a768a" },
         },
       },
     },
   },
-};
-
-export default extendTheme(theme);
+  globalCss: {
+    "html, body": {
+      bg: "gray.300",
+      color: "#bbc2cf",
+    },
+  },
+});
