@@ -17,6 +17,7 @@ export default function LinkItem(props: LinkItemProps) {
           textDecoration="underline"
           textDecorationThickness="1px"
           textUnderlineOffset="3px"
+          color="lightblue.0"
         >
           {children}
         </Text>

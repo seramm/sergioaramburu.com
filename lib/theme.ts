@@ -16,13 +16,17 @@ export const system = createSystem(defaultConfig, {
           800: { value: "#5f6a7c" },
           900: { value: "#6a768a" },
         },
+        lightblue: {
+          0: { value: "#bbc2cf" },
+        },
       },
     },
   },
   globalCss: {
     "html, body": {
       bg: "gray.300",
-      color: "#bbc2cf",
+      color: "lightblue.0",
+      colorScheme: "dark",
     },
   },
 });

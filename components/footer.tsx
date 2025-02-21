@@ -8,7 +8,7 @@ export default function Footer() {
     <Box as="footer" position="relative" paddingY="20">
       <Box maxWidth="3xl" marginX="auto" paddingX="6">
         <Box>
-          <Heading marginBottom="6" size="lg">
+          <Heading marginBottom="6" size="3xl">
             Sergio Aramburu
           </Heading>
         </Box>

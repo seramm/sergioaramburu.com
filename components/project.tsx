@@ -8,11 +8,11 @@ export default function Project() {
       overflow="hidden"
       variant="outline"
       bg="#333842"
-      color="#bbc2cf"
+      color="lightblue.0"
     >
       <Stack>
         <Card.Body>
-          <Heading size="lg">UVigo Motorsport</Heading>
+          <Heading size="xl">UVigo Motorsport</Heading>
 
           <Text py="2">
             UVigo Motorsport is a Formula Student team which is part of the
@@ -22,15 +22,11 @@ export default function Project() {
         </Card.Body>
 
         <Card.Footer alignItems={"end"}>
-          <Button variant="ghost">
-            <Link
-              href="https://uvigomotorsport.com"
-              color="#bbc2cf"
-              target="_blank"
-            >
-              UVigo Motorsport <ExternalLink size={10} />
-            </Link>
-          </Button>
+          <Link href="https://uvigomotorsport.com" target="_blank">
+            <Button variant="ghost" color="lightblue.0">
+              <Text textStyle="md">UVigo Motorsport</Text> <ExternalLink />
+            </Button>
+          </Link>
         </Card.Footer>
       </Stack>
     </Card.Root>
