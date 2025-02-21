@@ -1,11 +1,4 @@
-import {
-  Card,
-  Stack,
-  Link,
-  Text,
-  Heading,
-  Button,
-} from "@chakra-ui/react";
+import { Card, Stack, Link, Text, Heading, Button } from "@chakra-ui/react";
 import { ExternalLink } from "lucide-react";
 
 export default function Project() {
@@ -30,8 +23,12 @@ export default function Project() {
 
         <Card.Footer alignItems={"end"}>
           <Button variant="ghost">
-            <Link href="https://uvigomotorsport.com" color="#bbc2cf" target="_blank">
-              UVigo Motorsport <ExternalLink  size={10}/>
+            <Link
+              href="https://uvigomotorsport.com"
+              color="#bbc2cf"
+              target="_blank"
+            >
+              UVigo Motorsport <ExternalLink size={10} />
             </Link>
           </Button>
         </Card.Footer>
