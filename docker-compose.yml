@@ -20,5 +20,5 @@ services:
     volumes:
       - /srv/data:/srv/data
     ports:
-      - "8081:80"
+      - "8880:80"
     restart: always
