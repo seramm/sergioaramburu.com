@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Spacer, Spinner, Text } from "@chakra-ui/react";
+import { Box, Heading, HStack } from "@chakra-ui/react";
 import LinkItem from "./link-item";
 import siteConfig from "data";
 import { GitHubIcon, LinkedInIcon } from "./icons";

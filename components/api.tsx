@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HStack, Status, Text } from "@chakra-ui/react";
+import { Status } from "@chakra-ui/react";
 
 export default function ApiCheck() {
   const [posts, setPosts] = useState(null);
