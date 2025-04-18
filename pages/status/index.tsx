@@ -1,7 +1,7 @@
 import { Box, Text, Table } from "@chakra-ui/react";
 import Footer from "components/footer";
 import NavBar from "components/navbar";
-import ApiCheck from "components/api";
+import { ApiCheck } from "components/api";
 
 export default function Page() {
   return (
