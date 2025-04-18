@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import { Masonry } from "@mui/lab";
 import { useEffect, useState } from "react";
 
@@ -21,7 +21,10 @@ export default function Gallery() {
       <Masonry columns={3} spacing={2}>
         {posts.map((image, index) => (
           <Box key={index}>
-            <img src={`https://sergioaramburu.com/api/images/${image}`} />
+            <Image
+              src={`https://sergioaramburu.com/api/images/${image}`}
+              alt={index}
+            />
           </Box>
         ))}
       </Masonry>
