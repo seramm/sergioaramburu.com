@@ -22,6 +22,7 @@ import Link from "next/link";
 import { CloseIcon, MenuIcon, ServerRackIcon } from "./icons";
 import { ElementType, ReactNode, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useAuth, LogoutButton } from "./session";
 
 type NavbarItemProps = {
   data: NavbarItemData;
@@ -62,6 +63,7 @@ function NavbarItem(props: NavbarItemProps) {
 }
 
 function NavbarItems(props: StackProps) {
+  const isLoggedIn = useAuth();
   const { asPath } = useRouter();
   return (
     <HStack as="nav" display={{ base: "none", md: "flex" }} {...props}>
@@ -74,11 +76,13 @@ function NavbarItems(props: StackProps) {
           {item.label}
         </NavbarItem>
       ))}
+      {isLoggedIn && <LogoutButton />}
     </HStack>
   );
 }
 
 function MobileNavbarItems(props: StackProps) {
+  const isLoggedIn = useAuth();
   return (
     <Stack
       separator={<StackSeparator borderColor="gray.900" />}
@@ -91,6 +95,7 @@ function MobileNavbarItems(props: StackProps) {
           {item.label}
         </NavbarItem>
       ))}
+      {isLoggedIn && <LogoutButton />}
     </Stack>
   );
 }
