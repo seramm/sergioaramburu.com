@@ -18,12 +18,13 @@ export default function Gallery() {
   if (!posts) return <div>Loading...</div>;
   return (
     <Box>
-      <Masonry columns={3} spacing={2}>
+      <Masonry columns={3} spacing={1}>
         {posts.map((image, index) => (
           <Box key={index}>
             <Image
               src={`https://sergioaramburu.com/api/images/${image}`}
               alt={index}
+              rounded="sm"
             />
           </Box>
         ))}
