@@ -166,7 +166,7 @@ export default function NavBar() {
     <Flex
       as="header"
       paddingY="6"
-      maxWidth="3xl"
+      maxWidth="4xl"
       marginX="auto"
       paddingX="6"
       align="center"

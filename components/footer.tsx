@@ -6,7 +6,7 @@ import { GitHubIcon, LinkedInIcon } from "./icons";
 export default function Footer() {
   return (
     <Box as="footer" position="relative" paddingY="20">
-      <Box maxWidth="3xl" marginX="auto" paddingX="6">
+      <Box maxWidth="4xl" marginX="auto" paddingX="6">
         <Box>
           <Heading marginBottom="6" size="3xl">
             Sergio Aramburu
