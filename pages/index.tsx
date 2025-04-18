@@ -1,5 +1,6 @@
 import { Box, Separator, Heading, HeadingProps } from "@chakra-ui/react";
 import Container from "components/container";
+import Gallery from "components/gallery";
 import Project from "components/project";
 
 function HeadHeading(props: HeadingProps) {
@@ -57,6 +58,10 @@ export default function Page() {
         <Separator />
         <SectionHeading>Projects</SectionHeading>
         <Project />
+      </Box>
+      <Box py={9}>
+        <SectionHeading>Photography</SectionHeading>
+        <Gallery />
       </Box>
     </Container>
   );
