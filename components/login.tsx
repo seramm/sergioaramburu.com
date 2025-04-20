@@ -4,6 +4,7 @@ import { Button, Field, Input, Stack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { login } from "./api";
 import { useRouter } from "next/router";
+import { PasswordInput } from "./ui/password-input";
 
 interface FormValues {
   username: string;
@@ -36,7 +37,7 @@ export default function LoginForm() {
 
         <Field.Root invalid={!!errors.password}>
           <Field.Label>Password</Field.Label>
-          <Input {...register("password")} />
+          <PasswordInput {...register("password")} />
           <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
         </Field.Root>
 
