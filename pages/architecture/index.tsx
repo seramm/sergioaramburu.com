@@ -1,14 +1,12 @@
 import { Box, Image } from "@chakra-ui/react";
-import Footer from "components/footer";
-import NavBar from "components/navbar";
+import Container from "components/container";
 import ProtectedRoute from "components/protectedroute";
 import Link from "next/link";
 
 export default function Page() {
   return (
     <ProtectedRoute>
-      <Box>
-        <NavBar />
+      <Container>
         <Box marginX="auto" px={100}>
           <Box display={{ md: "flex" }} py={9}>
             <Link href="/images/architecture.png">
@@ -20,8 +18,7 @@ export default function Page() {
             </Link>
           </Box>
         </Box>
-        <Footer />
-      </Box>
+      </Container>
     </ProtectedRoute>
   );
 }
