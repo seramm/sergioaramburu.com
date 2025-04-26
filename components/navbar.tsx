@@ -22,6 +22,7 @@ import { CloseIcon, MenuIcon, ServerRackIcon } from "./icons";
 import { ElementType, ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth, LogoutButton } from "./session";
+import { Thermometer } from "lucide-react";
 
 type NavbarItemProps = {
   data: NavbarItemData;
@@ -39,6 +40,7 @@ interface NavbarItemData {
 
 const items: NavbarItemData[] = [
   { label: "Cloud", href: "/architecture", icon: ServerRackIcon },
+  { label: "Meteo", href: "/meteo", icon: Thermometer },
 ];
 
 function NavbarItem(props: NavbarItemProps) {
