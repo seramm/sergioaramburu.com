@@ -13,14 +13,13 @@ import {
   StackProps,
   useBreakpointValue,
   StackSeparator,
-  DrawerRoot,
-  DrawerTrigger,
-  DrawerContext,
+  Drawer,
+  Portal,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { CloseIcon, MenuIcon, ServerRackIcon } from "./icons";
-import { ElementType, ReactNode, useEffect } from "react";
+import { ElementType, ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth, LogoutButton } from "./session";
 
@@ -100,69 +99,36 @@ function MobileNavbarItems(props: StackProps) {
   );
 }
 
-// function MobileNavbar() {
-//   const menu = useDisclosure();
-//   const breakpoint = useBreakpointValue({ base: true, md: false });
-//
-//   useEffect(() => {
-//     if (menu.open && !breakpoint) {
-//       menu.onClose();
-//     }
-//   }, [breakpoint, menu]);
-//
-//   return (
-//     <>
-//       <Center
-//         width="10"
-//         height="10"
-//         display={{ base: "flex", md: "none" }}
-//         as="button"
-//         aria-expanded={menu.open}
-//         onClick={menu.onOpen}
-//       >
-//         {menu.open ? <CloseIcon /> : <MenuIcon />}
-//       </Center>
-//       <Drawer isOpen={menu.open} placement="bottom" onClose={menu.onClose}>
-//         <DrawerBackdrop />
-//         <DrawerContent id="nav-menu" bg="gray.200" padding="6">
-//           <MobileNavbarItems />
-//         </DrawerContent>
-//       </Drawer>
-//     </>
-//   );
-// }
-
 function MobileNavbar() {
-  const menu = useDisclosure();
-  const breakpoint = useBreakpointValue({ base: true, md: false });
-
-  useEffect(() => {
-    if (menu.open && !breakpoint) {
-      menu.onClose();
-    }
-  }, [breakpoint, menu]);
+  const [open, setOpen] = useState(false);
 
   return (
-    <>
-      <DrawerRoot placement="bottom">
-        <DrawerTrigger asChild>
-          <Center
-            width="10"
-            height="10"
-            display={{ base: "flex", md: "none" }}
-            as="button"
-          >
-            <DrawerContext>
-              {(drawer) => (drawer.open ? <CloseIcon /> : <MenuIcon />)}
-            </DrawerContext>
-          </Center>
-        </DrawerTrigger>
-        <DrawerBackdrop />
-        <DrawerContent id="nav-menu" bg="gray.200" padding="6">
-          <MobileNavbarItems />
-        </DrawerContent>
-      </DrawerRoot>
-    </>
+    <Drawer.Root
+      open={open}
+      placement="top"
+      onOpenChange={(e) => setOpen(e.open)}
+    >
+      <Drawer.Trigger asChild>
+        <Center
+          width="10"
+          height="10"
+          display={{ base: "flex", md: "none" }}
+          as="button"
+        >
+          <Drawer.Context>
+            {(drawer) => (drawer.open ? <CloseIcon /> : <MenuIcon />)}
+          </Drawer.Context>
+        </Center>
+      </Drawer.Trigger>
+      <Portal>
+        <Drawer.Backdrop />
+        <Drawer.Positioner>
+          <Drawer.Content>
+            <MobileNavbarItems />
+          </Drawer.Content>
+        </Drawer.Positioner>
+      </Portal>
+    </Drawer.Root>
   );
 }
 
