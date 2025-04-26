@@ -5,13 +5,9 @@ import {
   Stack,
   Spacer,
   Text,
-  useDisclosure,
-  DrawerBackdrop,
-  DrawerContent,
   Center,
   Icon,
   StackProps,
-  useBreakpointValue,
   StackSeparator,
   Drawer,
   Portal,
@@ -19,7 +15,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { CloseIcon, MenuIcon, ServerRackIcon } from "./icons";
-import { ElementType, ReactNode, useEffect, useState } from "react";
+import { ElementType, ReactNode, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth, LogoutButton } from "./session";
 import { Thermometer } from "lucide-react";
