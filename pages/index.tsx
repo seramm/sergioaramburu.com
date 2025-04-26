@@ -38,11 +38,9 @@ function SectionHeading(props: HeadingProps) {
 export default function Page() {
   return (
     <Container>
-      <Box display={{ md: "flex" }} py={9}>
-        <Box flexGrow={1}>
-          <HeadHeading>Sergio Aramburu</HeadHeading>
-          <p>Computer Science Student</p>
-        </Box>
+      <Box flexGrow={1} py={9}>
+        <HeadHeading>Sergio Aramburu</HeadHeading>
+        <p>Computer Science Student</p>
       </Box>
       <Box>
         <p>
