@@ -14,11 +14,11 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { CloseIcon, MenuIcon, ServerRackIcon } from "./icons";
+import { CloseIcon, MenuIcon } from "./icons";
 import { ElementType, ReactNode, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth, LogoutButton } from "./session";
-import { Thermometer } from "lucide-react";
+import { ChartSpline, Server } from "lucide-react";
 
 type NavbarItemProps = {
   data: NavbarItemData;
@@ -35,8 +35,8 @@ interface NavbarItemData {
 }
 
 const items: NavbarItemData[] = [
-  { label: "Cloud", href: "/architecture", icon: ServerRackIcon },
-  { label: "Meteo", href: "/meteo", icon: Thermometer },
+  { label: "Cloud", href: "/architecture", icon: Server },
+  { label: "Meteo", href: "/meteo", icon: ChartSpline },
 ];
 
 function NavbarItem(props: NavbarItemProps) {
@@ -52,7 +52,7 @@ function NavbarItem(props: NavbarItemProps) {
       _hover={{ color: "gray.900" }}
     >
       <Link href={data.href}>
-        <Icon as={data.icon} fontSize="lg" />
+        <Icon as={data.icon} size="md" />
         <Text fontFamily="heading">{children}</Text>
       </Link>
     </HStack>
