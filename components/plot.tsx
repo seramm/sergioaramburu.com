@@ -7,184 +7,141 @@ interface MeteoData {
   humidity: number;
 }
 
-export default function BasicPlot() {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const [data, setData] = useState<MeteoData[]>([]);
+interface MeteoDataProps {
+  data: MeteoData[];
+}
 
+export function Dashboard() {
+  const [data, setData] = useState<MeteoData[]>([]);
   useEffect(() => {
     fetch("https://sergioaramburu.com/api/meteo/last_data")
       .then((res) => res.json())
       .then((data) => {
-        const parsed = data.map((d: MeteoData) => ({
-          ...d,
-          date: new Date(d.date),
-        }));
-        setData(parsed);
+        setData(
+          data.map((d: MeteoData) => ({
+            ...d,
+            date: new Date(d.date),
+          })),
+        );
       })
       .catch((err) => console.error("Error fetching meteo data", err));
   }, []);
+  return (
+    <>
+      <TempAreaPlot data={data} />
+    </>
+  );
+}
+
+function TempAreaPlot({ data }: MeteoDataProps) {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const margin = { top: 40, right: 40, bottom: 60, left: 40 };
+  const width = 800;
+  const height = 400;
 
   useEffect(() => {
     if (data.length === 0) return;
 
-    const svg = d3.select(svgRef.current);
+    const area = (data, x) =>
+      d3
+        .area<MeteoData>()
+        .x((d) => x(d.date))
+        .y0(y(0))
+        .y1((d) => y(d.temperature))(data);
 
-    const margin = { top: 20, right: 40, bottom: 40, left: 40 };
-    const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
     const x = d3
       .scaleTime()
       .domain(d3.extent(data, (d) => d.date))
-      .range([0, width]);
+      .range([margin.left, width - margin.right]);
 
-    const y_temp = d3
+    const xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%d-%m %H:%M")).tickSizeOuter(0);
+
+    const y = d3
       .scaleLinear()
       .domain([0, d3.max(data, (d) => Math.max(d.temperature)) ?? 100])
       .nice()
-      .range([height, 0]);
+      .range([height - margin.bottom, margin.top]);
 
-    const y_hum = d3
-      .scaleLinear()
-      .domain([0, d3.max(data, (d) => Math.max(d.humidity)) ?? 100])
-      .nice()
-      .range([height, 0]);
+    const yAxis = d3.axisLeft(y);
+
+    const zoom = d3
+      .zoom()
+      .scaleExtent([1, 32])
+      .extent([
+        [margin.left, 0],
+        [width - margin.right, height],
+      ])
+      .translateExtent([
+        [margin.left, -Infinity],
+        [width - margin.right, Infinity],
+      ])
+      .on("zoom", zoomed);
+
+    const svg = d3
+      .select(svgRef.current)
+      .attr("viewBox", [0, 0, width, height])
+      .attr("width", width)
+      .attr("height", height)
+      .attr("style", "max-width: 100%; height: auto;");
 
     svg
-      .attr("width", "100%")
-      .attr("height", "100%")
-      .attr(
-        "viewBox",
-        `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`,
-      )
-      .attr("preserveAspectRatio", "xMidYMid meet")
-      .style("overflow", "visible")
-      .attr("transform", `translate(${margin.left},${margin.bottom})`)
-      .on("pointerenter pointermove", pointermoved)
-      .on("pointerleave", pointerleft)
-      .on("touchstart", (event) => event.preventDefault());
+      .append("defs")
+      .append("clipPath")
+      .attr("id", "clip")
+      .append("rect")
+      .attr("x", margin.left)
+      .attr("y", margin.top)
+      .attr("width", width)
+      .attr("height", height);
+    const clip = svg.append("g").attr("clip-path", "url(#clip)");
 
-    const g = svg.append("g");
+    const path = clip
+      .append("path")
+      .datum(data)
+      .attr("fill", "tomato")
+      .attr("d", area(data, x));
 
-    g.append("g")
-      .attr("transform", `translate(0,${height})`)
-      .call(
-        d3
-          .axisBottom(x)
-          .tickFormat((d) => d3.timeFormat("%b %d, %H:%M")(d as Date)),
-      )
-      .selectAll("text")
+    const gx = svg
+      .append("g")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      .call(xAxis);
+
+    gx.selectAll("text")
       .attr("transform", "rotate(-45)")
+      .style("font-size", "12px")
       .style("text-anchor", "end");
 
-    g.append("g")
-      .call(d3.axisLeft(y_temp))
+    svg
+      .append("g")
+      .attr("transform", `translate(${margin.left}, 0)`)
+      .call(yAxis)
       .call((g) => g.select(".domain").remove())
       .call((g) =>
         g
           .selectAll(".tick line")
           .clone()
-          .attr("x2", width)
+          .attr("x2", width - margin.right)
           .attr("stroke-opacity", 0.1),
-      );
+      )
+      .selectAll("text")
+      .style("font-size", "14px");
 
-    g.append("g")
-      .attr("transform", `translate(${width}, 0)`)
-      .call(d3.axisRight(y_hum))
-      .call((g) => g.select(".domain").remove());
+    function zoomed(event) {
+      const xz = event.transform.rescaleX(x);
+      path.attr("d", area(data, xz));
+      gx.call(xAxis.scale(xz));
 
-    g.append("g")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 1.5)
-      .attr("fill", "none")
-      .selectAll("circle")
-      .data(data)
-      .join("circle")
-      .attr("cx", (d) => x(d.date))
-      .attr("cy", (d) => y_hum(d.humidity))
-      .attr("r", 1);
-
-    g.append("g")
-      .attr("stroke", "tomato")
-      .attr("stroke-width", 1.5)
-      .attr("fill", "none")
-      .selectAll("circle")
-      .data(data)
-      .join("circle")
-      .attr("cx", (d) => x(d.date))
-      .attr("cy", (d) => y_temp(d.temperature))
-      .attr("r", 1);
-
-    const tooltip = g.append("g");
-
-    function formatDate(date: Date) {
-      return date.toLocaleString("en", {
-        month: "numeric",
-        day: "numeric",
-        year: "2-digit",
-        hour: "numeric",
-        minute: "numeric",
-      });
+      gx.selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("font-size", "12px")
+        .style("text-anchor", "end");
     }
 
-    const bisect = d3.bisector<MeteoData, Date>((d) => d.date).center;
-    function pointermoved(event) {
-      const i = bisect(data, x.invert(d3.pointer(event)[0]));
-
-      const closestTemp = data[i].temperature;
-      const closestHum = data[i].humidity;
-
-      const tempDistance = Math.abs(y_temp(closestTemp) - d3.pointer(event)[1]);
-      const humDistance = Math.abs(y_hum(closestHum) - d3.pointer(event)[1]);
-
-      const isTempCloser = tempDistance < humDistance;
-
-      tooltip.style("display", null);
-      tooltip.attr(
-        "transform",
-        `translate(${x(data[i].date)},${isTempCloser ? y_temp(closestTemp) : y_hum(closestHum)})`,
-      );
-
-      const path = tooltip
-        .selectAll("path")
-        .data([,])
-        .join("path")
-        .attr("fill", "white")
-        .attr("stroke", "black");
-
-      const text = tooltip
-        .selectAll("text")
-        .data([,])
-        .join("text")
-        .call((text) =>
-          text
-            .selectAll("tspan")
-            .data([
-              formatDate(data[i].date),
-              "Temp: " + closestTemp + " ºC",
-              "Hum: " + closestHum + " %",
-            ])
-            .join("tspan")
-            .attr("x", 0)
-            .attr("y", (_, i) => `${i * 1.1}em`)
-            .attr("font-weight", (_, i) => (i ? null : "bold"))
-            .text((d) => d),
-        );
-
-      size(text, path);
-    }
-
-    function pointerleft() {
-      tooltip.style("display", "none");
-    }
-
-    function size(text, path) {
-      const { x, y, width: w, height: h } = text.node().getBBox();
-      text.attr("transform", `translate(${-w / 2},${15 - y})`);
-      path.attr(
-        "d",
-        `M${-w / 2 - 10},5H-5l5,-5l5,5H${w / 2 + 10}v${h + 20}h-${w + 20}z`,
-      );
-    }
+    svg
+      .call(zoom)
+      .transition()
+      .duration(750)
+      .call(zoom.scaleTo, 4, [x(0), 0]);
   }, [data]);
 
   return <svg ref={svgRef} />;
