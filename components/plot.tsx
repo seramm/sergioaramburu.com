@@ -142,7 +142,7 @@ function TempAreaPlot({ data }: MeteoDataProps) {
       .datum(data)
       .attr("fill", "none")
       .attr("stroke", "steelblue")
-      .attr("stroke-width", 1.5)
+      .attr("stroke-width", 2.5)
       .attr("d", line(data, x));
 
     const gx = svg
