@@ -1,6 +1,7 @@
 import { Provider } from "components/ui/provider";
 import Head from "next/head";
 import { AppProps } from "next/app";
+import { appWithTranslation } from "next-i18next";
 
 const Website = ({ Component, pageProps }: AppProps) => {
   return (
@@ -15,4 +16,4 @@ const Website = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default Website;
+export default appWithTranslation(Website);

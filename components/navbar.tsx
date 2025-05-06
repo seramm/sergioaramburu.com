@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   HStack,
   Stack,
@@ -19,6 +20,7 @@ import { ElementType, ReactNode, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth, LogoutButton } from "./session";
 import { ChartSpline, Server } from "lucide-react";
+import { CircleFlag } from "react-circle-flags";
 
 type NavbarItemProps = {
   data: NavbarItemData;
@@ -130,6 +132,25 @@ function MobileNavbar() {
   );
 }
 
+function LanguageSwitcher() {
+  const { locale, asPath } = useRouter();
+  const handleSwitch = (lang: string) => {
+    window.location.href = `${lang}${asPath}`;
+  };
+  const onClick = () => {
+    handleSwitch(locale === "en" ? "es" : "en");
+  };
+  return (
+    <Box ml={5} onClick={onClick} cursor="pointer">
+      {locale === "en" ? (
+        <CircleFlag countryCode="es" width="25" />
+      ) : (
+        <CircleFlag countryCode="gb" width="25" />
+      )}
+    </Box>
+  );
+}
+
 export default function NavBar() {
   return (
     <Flex
@@ -161,6 +182,7 @@ export default function NavBar() {
       </Box>
       <Spacer />
       <NavbarItems />
+      <LanguageSwitcher />
       <MobileNavbar />
     </Flex>
   );

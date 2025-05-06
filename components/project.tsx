@@ -1,7 +1,39 @@
-import { Card, Stack, Link, Text, Heading, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Card,
+  Stack,
+  Link,
+  Text,
+  Heading,
+  Button,
+} from "@chakra-ui/react";
 import { ExternalLink } from "lucide-react";
+import { useTranslation } from "next-i18next";
 
-export default function Project() {
+type ProjectProps = {
+  id: string;
+};
+
+const projects = ["um", "website"];
+
+export default function ProjectsCards() {
+  return (
+    <Box>
+      {projects.map((id) => (
+        <Box key={id} pb={5}>
+          <ProjectCard key={id} id={id} />
+        </Box>
+      ))}
+    </Box>
+  );
+}
+
+function ProjectCard({ id }: ProjectProps) {
+  const { t } = useTranslation("projects");
+
+  const link = t(`${id}.button-link`, { defaultValue: "" });
+  const buttonText = t(`${id}.button-text`, { defaultValue: "" });
+  const paragraph = t(`${id}.description`, { returnObjects: true }) as string[];
   return (
     <Card.Root
       direction={{ base: "column", sm: "row" }}
@@ -12,28 +44,29 @@ export default function Project() {
     >
       <Stack>
         <Card.Body>
-          <Heading size="xl">UVigo Motorsport</Heading>
+          <Heading size="xl">{t(`${id}.title`)}</Heading>
 
-          <Text py="2">
-            UVigo Motorsport is a Formula Student team which is part of the
-            University of Vigo. I have been part of the Driverless team for a
-            year and a half. There I helped develop an Autonomous System to
-            compete at Formula Student events. This opportunity allowed me to
-            understand the true world of software development. Inside UVigo
-            Motorsport I made my first contact with Python while using ROS.
-          </Text>
+          {paragraph.map(
+            (paragraph: string, i: number) => (
+              <Text key={i} py="2">
+                {paragraph}
+              </Text>
+            ),
+          )}
         </Card.Body>
 
-        <Card.Footer alignItems={"end"}>
-          <Link href="https://uvigomotorsport.com" target="_blank">
-            <Button variant="ghost" color="lightblue.0">
-              <Text fontWeight="semibold" textStyle="md">
-                UVigo Motorsport
-              </Text>{" "}
-              <ExternalLink />
-            </Button>
-          </Link>
-        </Card.Footer>
+        {link && (
+          <Card.Footer alignItems={"end"}>
+            <Link href={link} target="_blank">
+              <Button variant="ghost" color="lightblue.0">
+                <Text fontWeight="semibold" textStyle="md">
+                  {buttonText}
+                </Text>{" "}
+                <ExternalLink />
+              </Button>
+            </Link>
+          </Card.Footer>
+        )}
       </Stack>
     </Card.Root>
   );

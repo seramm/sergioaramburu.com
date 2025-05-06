@@ -1,7 +1,9 @@
 import { Box, Separator, Heading, HeadingProps } from "@chakra-ui/react";
 import Container from "components/container";
 import Gallery from "components/gallery";
-import Project from "components/project";
+import ProjectsCards from "components/project";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 function HeadHeading(props: HeadingProps) {
   return (
@@ -36,31 +38,33 @@ function SectionHeading(props: HeadingProps) {
 }
 
 export default function Page() {
+  const { t, ready } = useTranslation("home");
   return (
     <Container>
       <Box flexGrow={1} py={9}>
         <HeadHeading>Sergio Aramburu</HeadHeading>
-        <p>Computer Science Student</p>
+        <p>{ready ? t("heading") : ""}</p>
       </Box>
       <Box>
-        <p>
-          I am a bachelor&apos;s degree student based in Galicia, Spain. I am
-          intrigued by Data Science and how apparent useless data can lead to
-          solving highly complex problems that we face every day. Not only am I
-          interested in computer-related topics, but I am also passionate about
-          art. I cannot separate myself from music, photography and
-          architecture.
-        </p>
+        <p>{ready ? t("text") : ""}</p>
       </Box>
       <Box py={9}>
         <Separator />
-        <SectionHeading>Projects</SectionHeading>
-        <Project />
+        <SectionHeading>{ready ? t("projects") : ""}</SectionHeading>
+        <ProjectsCards />
       </Box>
       <Box py={9}>
-        <SectionHeading>Photography</SectionHeading>
+        <SectionHeading>{ready ? t("photography") : ""}</SectionHeading>
         <Gallery />
       </Box>
     </Container>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["home", "projects"])),
+    },
+  };
 }
