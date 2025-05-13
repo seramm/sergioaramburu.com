@@ -5,14 +5,14 @@ import Login from "components/login";
 export default function Page() {
   return (
     <Container>
-        <Box
-          display={{ md: "flex" }}
-          py={9}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Login />
-        </Box>
+      <Box
+        display={{ md: "flex" }}
+        py={9}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Login />
+      </Box>
     </Container>
   );
 }

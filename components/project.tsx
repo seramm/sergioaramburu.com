@@ -46,13 +46,11 @@ function ProjectCard({ id }: ProjectProps) {
         <Card.Body>
           <Heading size="xl">{t(`${id}.title`)}</Heading>
 
-          {paragraph.map(
-            (paragraph: string, i: number) => (
-              <Text key={i} py="2">
-                {paragraph}
-              </Text>
-            ),
-          )}
+          {paragraph.map((paragraph: string, i: number) => (
+            <Text key={i} py="2">
+              {paragraph}
+            </Text>
+          ))}
         </Card.Body>
 
         {link && (

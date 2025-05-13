@@ -8,13 +8,7 @@ export default function Container({ children }: { children: React.ReactNode }) {
     <Box>
       <NavBar />
       <Box maxWidth="4xl" marginX="auto" paddingX="6">
-        <Box
-          as="main"
-          id="content"
-          position="relative"
-          zIndex={1}
-          pb={6}
-        >
+        <Box as="main" id="content" position="relative" zIndex={1} pb={6}>
           {children}
         </Box>
       </Box>
