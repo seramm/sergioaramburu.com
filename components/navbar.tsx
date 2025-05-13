@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import { useAuth, LogoutButton } from "./session";
 import { ChartSpline, Server } from "lucide-react";
 import { CircleFlag } from "react-circle-flags";
+import { changeLanguage } from "i18next";
 
 type NavbarItemProps = {
   data: NavbarItemData;
@@ -133,19 +134,26 @@ function MobileNavbar() {
 }
 
 function LanguageSwitcher() {
-  const { locale, asPath } = useRouter();
-  const handleSwitch = (lang: string) => {
-    window.location.href = `${lang}${asPath}`;
-  };
-  const onClick = () => {
-    handleSwitch(locale === "en" ? "es" : "en");
+  const router = useRouter();
+  const { locale, pathname, asPath, query } = router;
+
+  const changeLanguage = async (lang: string) => {
+    await router.push({ pathname, query }, asPath, { locale: lang });
   };
   return (
-    <Box ml={5} onClick={onClick} cursor="pointer">
+    <Box ml={5} cursor="pointer">
       {locale === "en" ? (
-        <CircleFlag countryCode="es" width="25" />
+        <CircleFlag
+          countryCode="es"
+          width="25"
+          onClick={() => changeLanguage("es")}
+        />
       ) : (
-        <CircleFlag countryCode="gb" width="25" />
+        <CircleFlag
+          countryCode="gb"
+          width="25"
+          onClick={() => changeLanguage("en")}
+        />
       )}
     </Box>
   );
