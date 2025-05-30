@@ -1,4 +1,4 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { Box, HStack, Stack, Text, useBreakpointValue } from "@chakra-ui/react";
 import * as d3 from "d3";
 import { Droplets, Thermometer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -326,24 +326,31 @@ function getMissingData(data: MeteoData[], maxGapMinutes = 2) {
 }
 
 function ValuesIndicator({ data }: MeteoDataProps) {
+  const iconSize = useBreakpointValue({ base: 20, md: 32 });
   if (data.length === 0) return;
   const lastValues = data[data.length - 1];
   return (
-    <HStack py="10" pt="20" justify="center" align="center">
+    <Stack
+      direction={["row", "row"]}
+      py="10"
+      pt="20"
+      justify="center"
+      align="center"
+    >
       <Box
         p="5"
-        mx="10"
-        borderWidth="5px"
+        mx={["1", "10"]}
+        borderWidth={["3px", "5px"]}
         borderColor="lightblue.0"
         borderRadius="20px"
       >
         <HStack>
           <Box p="1" borderWidth="3px" borderRadius="50%" color="lightblue.0">
-            <Thermometer size="32" />
+            <Thermometer size={iconSize} />
           </Box>
           <Text
             fontFamily="'Ubuntu Mono', monospace"
-            textStyle="3xl"
+            textStyle={["lg", "2xl"]}
             fontWeight="bold"
           >
             {data.length > 0
@@ -354,18 +361,18 @@ function ValuesIndicator({ data }: MeteoDataProps) {
       </Box>
       <Box
         p="5"
-        mx="10"
-        borderWidth="5px"
+        mx={["1", "10"]}
+        borderWidth={["3px", "5px"]}
         borderColor="lightblue.0"
         borderRadius="20px"
       >
         <HStack>
           <Box p="1" borderWidth="3px" borderRadius="50%" color="lightblue.0">
-            <Droplets size="32" />
+            <Droplets size={iconSize} />
           </Box>
           <Text
             fontFamily="'Ubuntu Mono', monospace"
-            textStyle="3xl"
+            textStyle={["lg", "2xl"]}
             fontWeight="bold"
           >
             {data.length > 0
@@ -374,6 +381,6 @@ function ValuesIndicator({ data }: MeteoDataProps) {
           </Text>
         </HStack>
       </Box>
-    </HStack>
+    </Stack>
   );
 }
