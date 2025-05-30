@@ -1,4 +1,6 @@
+import { Box, HStack, Text } from "@chakra-ui/react";
 import * as d3 from "d3";
+import { Droplets, Thermometer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 interface MeteoData {
@@ -28,12 +30,17 @@ export function Dashboard() {
   }, []);
   return (
     <>
-      <TempAreaPlot data={data} />
+      <Box>
+        <ValuesIndicator data={data} />
+      </Box>
+      <Box>
+        <MeteoPlot data={data} />
+      </Box>
     </>
   );
 }
 
-function TempAreaPlot({ data }: MeteoDataProps) {
+function MeteoPlot({ data }: MeteoDataProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const currentXScale = useRef<any>(null);
   const margin = { top: 40, right: 40, bottom: 60, left: 40 };
@@ -316,4 +323,57 @@ function getMissingData(data: MeteoData[], maxGapMinutes = 2) {
     }
   }
   return result;
+}
+
+function ValuesIndicator({ data }: MeteoDataProps) {
+  if (data.length === 0) return;
+  const lastValues = data[data.length - 1];
+  return (
+    <HStack py="10" pt="20" justify="center" align="center">
+      <Box
+        p="5"
+        mx="10"
+        borderWidth="5px"
+        borderColor="lightblue.0"
+        borderRadius="20px"
+      >
+        <HStack>
+          <Box p="1" borderWidth="3px" borderRadius="50%" color="lightblue.0">
+            <Thermometer size="32" />
+          </Box>
+          <Text
+            fontFamily="'Ubuntu Mono', monospace"
+            textStyle="3xl"
+            fontWeight="bold"
+          >
+            {data.length > 0
+              ? `${lastValues.temperature.toFixed(2)} ºC`
+              : `No data`}
+          </Text>
+        </HStack>
+      </Box>
+      <Box
+        p="5"
+        mx="10"
+        borderWidth="5px"
+        borderColor="lightblue.0"
+        borderRadius="20px"
+      >
+        <HStack>
+          <Box p="1" borderWidth="3px" borderRadius="50%" color="lightblue.0">
+            <Droplets size="32" />
+          </Box>
+          <Text
+            fontFamily="'Ubuntu Mono', monospace"
+            textStyle="3xl"
+            fontWeight="bold"
+          >
+            {data.length > 0
+              ? `${lastValues.humidity.toFixed(2)} %`
+              : `No data`}
+          </Text>
+        </HStack>
+      </Box>
+    </HStack>
+  );
 }
