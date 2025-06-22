@@ -1,4 +1,11 @@
-import { Box, HStack, Stack, Text, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Skeleton,
+  Stack,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import * as d3 from "d3";
 import { Droplets, Thermometer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -11,30 +18,87 @@ interface MeteoData {
 
 interface MeteoDataProps {
   data: MeteoData[];
+  loadingData?: boolean;
 }
 
 export function Dashboard() {
+  const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState<MeteoData[]>([]);
   useEffect(() => {
+    let isMounted = true;
+    let ws: WebSocket | null = null;
+    let reconnectTimeout: ReturnType<typeof setTimeout>;
+    const reconnectInterval = 5000;
+    let retryCount = 0;
+
+    function connectWebSocket() {
+      ws = new WebSocket("wss://sergioaramburu.com/api/meteo/ws");
+      ws.onopen = () => {
+        console.log("WebSocket connected");
+        retryCount = 0;
+      };
+      ws.onmessage = (event) => {
+        if (!isMounted) return;
+        try {
+          const newDatum: MeteoData = JSON.parse(event.data);
+          newDatum.date = new Date(newDatum.date);
+          setData((oldData) => {
+            if (
+              oldData.length === 0 ||
+              newDatum.date.getTime() >
+                oldData[oldData.length - 1].date.getTime()
+            ) {
+              return [...oldData, newDatum];
+            }
+            return oldData;
+          });
+        } catch (err) {
+          console.error("Failed to parse WebSocket message", err);
+        }
+      };
+      ws.onerror = (e) => {
+        console.error("WebSocket error", e);
+      };
+      ws.onclose = (event) => {
+        console.warn("WebSocket closed", event.code, event.reason);
+        if (isMounted) {
+          retryCount += 1;
+
+          const delay = Math.min(reconnectInterval * retryCount, 30000);
+          reconnectTimeout = setTimeout(() => {
+            console.log("Attempting WebSocket reconnect...");
+            connectWebSocket();
+          }, delay);
+        }
+      };
+    }
     fetch("https://sergioaramburu.com/api/meteo/last_data")
       .then((res) => res.json())
       .then((data) => {
+        if (!isMounted) return;
         setData(
           data.map((d: MeteoData) => ({
             ...d,
             date: new Date(d.date),
           })),
         );
+        setLoadingData(false);
+        connectWebSocket();
       })
       .catch((err) => console.error("Error fetching meteo data", err));
+    return () => {
+      isMounted = false;
+      if (ws) ws.close();
+      clearTimeout(reconnectTimeout);
+    };
   }, []);
   return (
     <>
       <Box>
-        <ValuesIndicator data={data} />
+        <ValuesIndicator data={data} loadingData={loadingData} />
       </Box>
       <Box>
-        <MeteoPlot data={data} />
+        {loadingData ? <Skeleton height="400px" /> : <MeteoPlot data={data} />}
       </Box>
     </>
   );
@@ -49,6 +113,9 @@ function MeteoPlot({ data }: MeteoDataProps) {
 
   useEffect(() => {
     if (data.length === 0) return;
+
+    const svg = d3.select(svgRef.current);
+    svg.selectAll("*").remove();
 
     const missingData = getMissingData(data);
 
@@ -106,8 +173,7 @@ function MeteoPlot({ data }: MeteoDataProps) {
       ])
       .on("zoom", zoomed);
 
-    const svg = d3
-      .select(svgRef.current)
+    svg
       .attr("viewBox", [0, 0, width, height])
       .attr("width", width)
       .attr("height", height)
@@ -325,10 +391,10 @@ function getMissingData(data: MeteoData[], maxGapMinutes = 2) {
   return result;
 }
 
-function ValuesIndicator({ data }: MeteoDataProps) {
+function ValuesIndicator({ data, loadingData }: MeteoDataProps) {
   const iconSize = useBreakpointValue({ base: 20, md: 32 });
-  if (data.length === 0) return;
-  const lastValues = data[data.length - 1];
+  // if (data.length === 0) return null;
+  const lastValues = data?.[data.length - 1];
   return (
     <Stack
       direction={["row", "row"]}
@@ -353,9 +419,9 @@ function ValuesIndicator({ data }: MeteoDataProps) {
             textStyle={["lg", "2xl"]}
             fontWeight="bold"
           >
-            {data.length > 0
+            {!loadingData
               ? `${lastValues.temperature.toFixed(2)} ºC`
-              : `No data`}
+              : `--.-- ºC`}
           </Text>
         </HStack>
       </Box>
@@ -375,9 +441,7 @@ function ValuesIndicator({ data }: MeteoDataProps) {
             textStyle={["lg", "2xl"]}
             fontWeight="bold"
           >
-            {data.length > 0
-              ? `${lastValues.humidity.toFixed(2)} %`
-              : `No data`}
+            {!loadingData ? `${lastValues.humidity.toFixed(2)} %` : `--.-- %`}
           </Text>
         </HStack>
       </Box>
