@@ -35,13 +35,17 @@ export default function LoginForm() {
       <Stack gap="4" align="flex-start" maxW="sm">
         <Field.Root invalid={!!errors.username}>
           <Field.Label>Username</Field.Label>
-          <Input {...register("username")} />
+          <Input
+            {...register("username", { required: "Username is required" })}
+          />
           <Field.ErrorText>{errors.username?.message}</Field.ErrorText>
         </Field.Root>
 
         <Field.Root invalid={!!errors.password}>
           <Field.Label>Password</Field.Label>
-          <PasswordInput {...register("password")} />
+          <PasswordInput
+            {...register("password", { required: "Password is required" })}
+          />
           <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
         </Field.Root>
 
