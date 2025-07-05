@@ -20,10 +20,14 @@ export default function LoginForm() {
   } = useForm<FormValues>();
 
   const onSubmit = handleSubmit(async (data) => {
-    const token = await login(data.username, data.password);
-    localStorage.setItem("access_token", token);
-    const redirectTo = localStorage.getItem("redirectTo") || "/";
-    router.push(redirectTo);
+    try {
+      const token = await login(data.username, data.password);
+      localStorage.setItem("access_token", token);
+      const redirectTo = localStorage.getItem("redirectTo") || "/";
+      router.push(redirectTo);
+    } catch (err) {
+      console.error("Login failed: ", err);
+    }
   });
 
   return (
