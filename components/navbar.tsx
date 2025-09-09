@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Flex,
   HStack,
   Stack,
@@ -21,7 +20,6 @@ import { useRouter } from "next/router";
 import { useAuth } from "context/session";
 import { ChartSpline, Server, LogOut } from "lucide-react";
 import { CircleFlag } from "react-circle-flags";
-import { changeLanguage } from "i18next";
 
 type NavbarItemProps = {
   data: NavbarItemData;
@@ -63,7 +61,6 @@ function NavbarItem(props: NavbarItemProps) {
 }
 
 function NavbarItems(props: StackProps) {
-  const isLoggedIn = useAuth();
   const { asPath } = useRouter();
   return (
     <HStack as="nav" display={{ base: "none", md: "flex" }} {...props}>
@@ -81,7 +78,6 @@ function NavbarItems(props: StackProps) {
 }
 
 function MobileNavbarItems(props: StackProps) {
-  const isLoggedIn = useAuth();
   return (
     <Stack
       separator={<StackSeparator borderColor="gray.900" />}

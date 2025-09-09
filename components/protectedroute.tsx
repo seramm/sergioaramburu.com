@@ -1,11 +1,7 @@
 import { useAuth } from "context/session";
 import { useRouter } from "next/router";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect} from "react";
 
-interface ProtectedRouteProps {
-  children: ReactNode;
-  redirectTo?: string;
-}
 export default function ProtectedRoute({children, redirectTo = "/login"}) {
   const { user, loading } = useAuth();
   const router = useRouter();
