@@ -60,12 +60,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         method: "POST",
         credentials: "include",
       });
-      if (res.ok){
+      if (res.ok) {
         const data = await res.json();
         setUser(null);
         localStorage.removeItem("user");
-      } 
-
+      }
     } catch (err) {
       console.error(err);
     }

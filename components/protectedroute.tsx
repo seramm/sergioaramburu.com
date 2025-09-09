@@ -1,8 +1,8 @@
 import { useAuth } from "context/session";
 import { useRouter } from "next/router";
-import { useEffect} from "react";
+import { useEffect } from "react";
 
-export default function ProtectedRoute({children, redirectTo = "/login"}) {
+export default function ProtectedRoute({ children, redirectTo = "/login" }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
