@@ -2,10 +2,11 @@
 
 import { Alert, Button, Field, Input, Stack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { login } from "./api";
+import { login } from "api/auth";
 import { useRouter } from "next/router";
 import { PasswordInput } from "./ui/password-input";
 import { useState } from "react";
+import { useAuth } from "context/session";
 
 interface FormValues {
   username: string;
@@ -15,6 +16,7 @@ interface FormValues {
 export default function LoginForm() {
   const router = useRouter();
   const [loginError, setLoginError] = useState<string | null>(null);
+  const { setUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -23,12 +25,14 @@ export default function LoginForm() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const token = await login(data.username, data.password);
-      localStorage.setItem("access_token", token);
+      await login(data.username, data.password);
+      setUser({ username: data.username });
+      localStorage.setItem("user", JSON.stringify({ username: data.username }));
+
       const redirectTo = localStorage.getItem("redirectTo") || "/";
       router.push(redirectTo);
     } catch (err: any) {
-      setLoginError("Login failed");
+      setLoginError(err.message);
     }
   });
 

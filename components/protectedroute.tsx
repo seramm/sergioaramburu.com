@@ -1,30 +1,20 @@
+import { useAuth } from "context/session";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-export default function ProtectedRoute({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [loading, setLoading] = useState(true);
-  const [auth, setAuth] = useState(false);
+interface ProtectedRouteProps {
+  children: ReactNode;
+  redirectTo?: string;
+}
+export default function ProtectedRoute({children, redirectTo = "/login"}) {
+  const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
+    if (user === null) router.push("/login");
+  }, [user, router, redirectTo]);
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <div>Loading...</div>;
 
-    if (token) {
-      setAuth(true);
-    } else {
-      localStorage.setItem("redirectTo", window.location.pathname);
-      setAuth(false);
-      router.push("/login");
-    }
-
-    setLoading(false);
-  }, []);
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  return <>{auth ? children : null}</>;
+  return <>{children}</>;
 }

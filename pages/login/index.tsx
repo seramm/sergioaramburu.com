@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import Container from "components/container";
-import Login from "components/login";
+import Login from "components/loginform";
 
 export default function Page() {
   return (

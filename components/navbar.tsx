@@ -18,8 +18,8 @@ import Link from "next/link";
 import { CloseIcon, MenuIcon } from "./icons";
 import { ElementType, ReactNode, useState } from "react";
 import { useRouter } from "next/router";
-import { useAuth, LogoutButton } from "./session";
-import { ChartSpline, Server } from "lucide-react";
+import { useAuth } from "context/session";
+import { ChartSpline, Server, LogOut } from "lucide-react";
 import { CircleFlag } from "react-circle-flags";
 import { changeLanguage } from "i18next";
 
@@ -76,7 +76,6 @@ function NavbarItems(props: StackProps) {
           {item.label}
         </NavbarItem>
       ))}
-      {isLoggedIn && <LogoutButton />}
     </HStack>
   );
 }
@@ -95,7 +94,6 @@ function MobileNavbarItems(props: StackProps) {
           {item.label}
         </NavbarItem>
       ))}
-      {isLoggedIn && <LogoutButton />}
     </Stack>
   );
 }
@@ -141,7 +139,7 @@ function LanguageSwitcher() {
     await router.push({ pathname, query }, asPath, { locale: lang });
   };
   return (
-    <Box ml={5} cursor="pointer">
+    <Box mx={5} cursor="pointer">
       {locale === "en" ? (
         <CircleFlag
           countryCode="es"
@@ -155,6 +153,15 @@ function LanguageSwitcher() {
           onClick={() => changeLanguage("en")}
         />
       )}
+    </Box>
+  );
+}
+
+function SessionMgt() {
+  const { user, logoutUser } = useAuth();
+  return (
+    <Box mx={1} cursor="pointer">
+      {user ? <LogOut onClick={logoutUser} /> : null}
     </Box>
   );
 }
@@ -191,6 +198,7 @@ export default function NavBar() {
       <Spacer />
       <NavbarItems />
       <LanguageSwitcher />
+      <SessionMgt />
       <MobileNavbar />
     </Flex>
   );
