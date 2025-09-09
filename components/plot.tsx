@@ -12,16 +12,22 @@ import { useEffect, useRef, useState } from "react";
 
 interface MeteoData {
   date: Date;
+  metadata: {
+    location: string;
+    device: string;
+  };
   temperature: number;
   humidity: number;
 }
 
-interface MeteoDataProps {
+interface MeteoPlotProps {
   data: MeteoData[];
+  timeZone?: string;
   loadingData?: boolean;
 }
 
 export function Dashboard() {
+  const [timeZone, setTimeZone] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState<MeteoData[]>([]);
   useEffect(() => {
@@ -30,6 +36,9 @@ export function Dashboard() {
     let reconnectTimeout: ReturnType<typeof setTimeout>;
     const reconnectInterval = 5000;
     let retryCount = 0;
+
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    setTimeZone(tz);
 
     function connectWebSocket() {
       ws = new WebSocket("wss://sergioaramburu.com/api/meteo/ws");
@@ -83,6 +92,7 @@ export function Dashboard() {
           })),
         );
         setLoadingData(false);
+        console.log(data[0]);
         connectWebSocket();
       })
       .catch((err) => console.error("Error fetching meteo data", err));
@@ -98,13 +108,17 @@ export function Dashboard() {
         <ValuesIndicator data={data} loadingData={loadingData} />
       </Box>
       <Box>
-        {loadingData ? <Skeleton height="400px" /> : <MeteoPlot data={data} />}
+        {loadingData ? (
+          <Skeleton height="400px" />
+        ) : (
+          <MeteoPlot data={data} timeZone={timeZone} />
+        )}
       </Box>
     </>
   );
 }
 
-function MeteoPlot({ data }: MeteoDataProps) {
+function MeteoPlot({ data, timeZone }: MeteoPlotProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const currentXScale = useRef<any>(null);
   const margin = { top: 40, right: 40, bottom: 60, left: 40 };
@@ -256,7 +270,8 @@ function MeteoPlot({ data }: MeteoDataProps) {
     const bisect = d3.bisector<MeteoData, Date>((d) => d.date).center;
 
     function formatDate(date: Date) {
-      return date.toLocaleString("en", {
+      return date.toLocaleString("default", {
+        timeZone: timeZone || undefined,
         month: "numeric",
         day: "numeric",
         year: "2-digit",
@@ -391,7 +406,7 @@ function getMissingData(data: MeteoData[], maxGapMinutes = 2) {
   return result;
 }
 
-function ValuesIndicator({ data, loadingData }: MeteoDataProps) {
+function ValuesIndicator({ data, loadingData }: MeteoPlotProps) {
   const iconSize = useBreakpointValue({ base: 20, md: 32 });
   // if (data.length === 0) return null;
   const lastValues = data?.[data.length - 1];
