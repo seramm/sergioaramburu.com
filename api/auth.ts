@@ -3,7 +3,7 @@ export async function login(username: string, password: string) {
   formData.append("username", username);
   formData.append("password", password);
 
-  const res = await fetch("https://sergioaramburu.com/api/login", {
+  const res = await fetch("https://sergioaramburu.com/api/auth/login", {
     method: "POST",
     body: formData,
     credentials: "include", // Important! Sends/receives cookies

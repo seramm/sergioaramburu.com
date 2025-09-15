@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await fetch("https://sergioaramburu.com/api/me", {
+        const res = await fetch("https://sergioaramburu.com/api/auth/me", {
           method: "GET",
           credentials: "include",
         });
@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
   async function logoutUser() {
     try {
-      const res = await fetch("https://sergioaramburu.com/api/logout", {
+      const res = await fetch("https://sergioaramburu.com/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });
