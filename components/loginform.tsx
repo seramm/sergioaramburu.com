@@ -25,8 +25,8 @@ export default function LoginForm() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await login(data.username, data.password);
-      setUser({ username: data.username });
+      const user = await login(data.username, data.password);
+      setUser(user);
       localStorage.setItem("user", JSON.stringify({ username: data.username }));
 
       const redirectTo = localStorage.getItem("redirectTo") || "/";

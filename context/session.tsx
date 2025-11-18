@@ -8,6 +8,7 @@ import {
 
 interface User {
   username: string;
+  isAdmin: boolean;
 }
 
 interface AuthContextType {

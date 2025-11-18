@@ -14,3 +14,25 @@ export default function ProtectedRoute({ children, redirectTo = "/login" }) {
 
   return <>{children}</>;
 }
+export function ProtectedAdminRoute({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading) {
+      if (!user) {
+        router.push("/login");
+      } else if (!user.isAdmin) {
+        router.push("/dashboard");
+      }
+    }
+  }, [user, loading, router]);
+  if (loading) return <div>Loading...</div>;
+  if (!user || !user.isAdmin) return null;
+
+  return <>{children}</>;
+}
