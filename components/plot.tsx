@@ -27,18 +27,18 @@ interface MeteoPlotProps {
 }
 
 export function Dashboard() {
-  const [timeZone, setTimeZone] = useState(null);
+  const [timeZone, setTimeZone] = useState(
+    () => Intl.DateTimeFormat().resolvedOptions().timeZone,
+  );
   const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState<MeteoData[]>([]);
+
   useEffect(() => {
     let isMounted = true;
     let ws: WebSocket | null = null;
     let reconnectTimeout: ReturnType<typeof setTimeout>;
     const reconnectInterval = 5000;
     let retryCount = 0;
-
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setTimeZone(tz);
 
     function connectWebSocket() {
       ws = new WebSocket("wss://sergioaramburu.com/api/meteo/ws");
@@ -383,7 +383,7 @@ function MeteoPlot({ data, timeZone }: MeteoPlotProps) {
       .transition()
       .duration(750)
       .call(zoom.scaleTo, 4, [x(data[data.length - 1].date), 0]);
-  }, [data]);
+  }, [data, margin.top, margin.left, margin.bottom, margin.right, timeZone]);
 
   return <svg ref={svgRef} />;
 }
