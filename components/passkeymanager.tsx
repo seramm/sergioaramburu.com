@@ -11,14 +11,19 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { startRegistration } from "@simplewebauthn/browser";
-import { KeySquare, User } from "lucide-react";
+import { Check, KeySquare, User } from "lucide-react";
 import { useState } from "react";
 
 export function PasskeyManager() {
   const [username, setUsername] = useState("");
   const [invalid, setInvalid] = useState(false);
+  const [dataStatus, setDataStatus] = useState<"idle" | "loading" | "success">(
+    "idle",
+  );
 
   async function handleRegister() {
+    setInvalid(false);
+    setDataStatus("loading");
     try {
       const response = await fetch(
         "https://sergioaramburu.com/api/fido/register/begin",
@@ -43,14 +48,18 @@ export function PasskeyManager() {
 
       if (!verificationResp.ok) {
         setInvalid(true);
+        setDataStatus("idle");
         throw new Error("Registration failed");
       }
+      setDataStatus("success");
     } catch (err) {
       setInvalid(true);
+      setDataStatus("idle");
       console.error(err);
     }
   }
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setDataStatus("idle");
     setInvalid(false);
     setUsername(e.target.value);
   }
@@ -66,11 +75,22 @@ export function PasskeyManager() {
         </HStack>
         <Separator />
         <Field.Root invalid={invalid}>
-          <InputGroup startElement={<User />}>
+          <InputGroup
+            startElement={<User />}
+            endElement={
+              dataStatus === "loading" ? (
+                <Spinner color="white" />
+              ) : dataStatus === "success" ? (
+                <Check color="green" />
+              ) : undefined
+            }
+          >
             <Input
               value={username}
               onChange={handleInputChange}
               placeholder="Username"
+              pr="10"
+              borderColor={dataStatus === "success" ? "green.400" : undefined}
             />
           </InputGroup>
           <Field.ErrorText>
