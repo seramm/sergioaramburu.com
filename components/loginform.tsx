@@ -9,6 +9,11 @@ import { useEffect, useState } from "react";
 import { useAuth } from "context/session";
 import { Check, CircleAlert } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  base64URLStringToBuffer,
+  PublicKeyCredentialRequestOptionsJSON,
+  startAuthentication,
+} from "@simplewebauthn/browser";
 
 const MotionBox = motion(chakra.div);
 
@@ -39,20 +44,77 @@ export default function LoginForm() {
     }
   }, [loginStatus]);
 
+  // const onSubmit = handleSubmit(async (data) => {
+  //   setLoginStatus("waiting");
+  //   try {
+  //     const user = await login(data.username, data.password);
+  //     setUser(user);
+  //     localStorage.setItem("user", JSON.stringify({ username: data.username }));
+  //
+  //     const redirectTo = localStorage.getItem("redirectTo") || "/";
+  //     router.push(redirectTo);
+  //   } catch (err: any) {
+  //     setLoginStatus("error");
+  //   }
+  // });
+
   const onSubmit = handleSubmit(async (data) => {
     setLoginStatus("waiting");
-    try {
-      await new Promise((res) => setTimeout(res, 1500));
-      const user = await login(data.username, data.password);
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify({ username: data.username }));
+    const formData = new URLSearchParams();
+    formData.append("username", data.username);
+    formData.append("password", data.password);
+    const authResp = await fetch(
+      "https://sergioaramburu.com/api/fido/auth/begin",
+      {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      },
+    );
+    let opts = await authResp.json();
 
-      const redirectTo = localStorage.getItem("redirectTo") || "/";
-      router.push(redirectTo);
-    } catch (err: any) {
+    //  PublicKeyCredentialRequestOptionsJSON
+    const optionsJSON = opts.publicKey;
+    if (optionsJSON && optionsJSON.allowCredentials) {
+      optionsJSON.allowCredentials = optionsJSON.allowCredentials.map(
+        (cred: any) => ({
+          ...cred,
+          id: typeof cred.id === "string" ? cred.id : cred.id.toString(),
+        }),
+      );
+    }
+    let asseRep;
+    try {
+      asseRep = await startAuthentication({ optionsJSON: optionsJSON });
+    } catch (error) {
+      setLoginStatus("error");
+      console.error(error.message);
+      return;
+    }
+
+    const verificationResp = await fetch(
+      "https://sergioaramburu.com/api/fido/auth/complete",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: data.username,
+          assertionResponse: asseRep,
+        }),
+      },
+    );
+
+    const verificationJSON = await verificationResp.json();
+    console.log(verificationJSON);
+    if (verificationJSON && verificationJSON.verified) {
+      setLoginStatus("success");
+    } else {
       setLoginStatus("error");
     }
   });
+
   function handleInputChange() {
     setLoginStatus("idle");
   }
