@@ -5,7 +5,6 @@ import { ProtectedAdminRoute } from "components/protectedroute";
 
 export default function Page() {
   return (
-    <ProtectedAdminRoute>
       <Container>
         <Box
           display={{ md: "flex" }}
@@ -16,6 +15,5 @@ export default function Page() {
           <PasskeyManager />
         </Box>
       </Container>
-    </ProtectedAdminRoute>
   );
 }
