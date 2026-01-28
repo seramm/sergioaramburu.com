@@ -22,6 +22,8 @@
     "@simplewebauthn/browser": "^13.2.2",
     "d3": "^7.9.0",
     "i18next": "^25.8.0",
+    "eslint": "^9.39.1",
+    "framer-motion": "^12.23.25",
     "i18next-browser-languagedetector": "^8.2.0",
     "i18next-http-backend": "^3.0.2",
     "lucide-react": "^0.563.0",
