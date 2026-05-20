@@ -234,14 +234,14 @@ export function GalleryManager() {
           credentials: "include",
         },
       );
-      if (res.ok){
+      if (res.ok) {
         const updatedImages = [...imagesData];
         updatedImages[currentIndex] = {
           ...currentImage,
           tags: tags,
-          orientation: orientation
-        }
-        setImagesData(updatedImages)
+          orientation: orientation,
+        };
+        setImagesData(updatedImages);
       }
     } catch (err) {
       console.error("Error saving", err);

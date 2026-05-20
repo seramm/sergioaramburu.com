@@ -1,14 +1,16 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { jwtVerify } from "jose"
+import { jwtVerify } from "jose";
 
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 const PROTECTED_ROUTER = ["/dashboard"];
 
 export async function proxy(request: NextRequest) {
   const token = request.cookies.get("access_token")?.value;
-  const {pathname} = request.nextUrl;
-  const isProtectedRoute = PROTECTED_ROUTER.some(route => pathname.startsWith(route));
+  const { pathname } = request.nextUrl;
+  const isProtectedRoute = PROTECTED_ROUTER.some((route) =>
+    pathname.startsWith(route),
+  );
 
   if (isProtectedRoute) {
     if (!token) {
@@ -18,13 +20,13 @@ export async function proxy(request: NextRequest) {
     try {
       const { payload } = await jwtVerify(token, SECRET);
 
-      if(payload.role !== "admin") {
+      if (payload.role !== "admin") {
         return NextResponse.redirect(new URL("/", request.url));
       }
 
       return NextResponse.next();
-    } catch(error) {
-      return NextResponse.redirect(new URL("/login", request.url))
+    } catch (error) {
+      return NextResponse.redirect(new URL("/login", request.url));
     }
   }
 
@@ -40,6 +42,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
   ],
-}
+};

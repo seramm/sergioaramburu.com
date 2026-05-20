@@ -3,7 +3,13 @@ import Footer from "components/footer";
 import NavBar from "components/navbar";
 import React from "react";
 
-export default function Container({ children, size="4xl" }: { children: React.ReactNode, size?: string | number }) {
+export default function Container({
+  children,
+  size = "4xl",
+}: {
+  children: React.ReactNode;
+  size?: string | number;
+}) {
   return (
     <Box width={size} marginX="auto" paddingX="6">
       <NavBar />
