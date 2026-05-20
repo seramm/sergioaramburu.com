@@ -1,19 +1,20 @@
-import { Box } from "@chakra-ui/react";
-import Container from "components/container";
+import { VStack } from "@chakra-ui/react";
 import { PasskeyManager } from "components/passkeymanager";
-import { ProtectedAdminRoute } from "components/protectedroute";
+import { GalleryManager } from "components/gallerymanager";
+import Container from "components/container";
 
 export default function Page() {
   return (
-      <Container>
-        <Box
-          display={{ md: "flex" }}
-          py={9}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <PasskeyManager />
-        </Box>
-      </Container>
+    <Container size="6xl">
+      <VStack
+        display={{ md: "flex" }}
+        py={9}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <PasskeyManager />
+        <GalleryManager />
+      </VStack>
+    </Container>
   );
 }
