@@ -1,6 +1,6 @@
 import { Box, Separator, Heading, HeadingProps } from "@chakra-ui/react";
 import Container from "components/container";
-import Gallery from "components/gallery";
+import { SmallGallery } from "components/gallery";
 import ProjectsCards from "components/project";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -55,7 +55,7 @@ export default function Page() {
       </Box>
       <Box py={9}>
         <SectionHeading>{ready ? t("photography") : ""}</SectionHeading>
-        <Gallery />
+        <SmallGallery />
       </Box>
     </Container>
   );
