@@ -18,7 +18,7 @@ import { CloseIcon, MenuIcon } from "./icons";
 import { ElementType, ReactNode, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "context/session";
-import { ChartSpline, LogOut } from "lucide-react";
+import { ChartSpline, Images, LogOut } from "lucide-react";
 import { CircleFlag } from "react-circle-flags";
 
 type NavbarItemProps = {
@@ -37,6 +37,7 @@ interface NavbarItemData {
 
 const items: NavbarItemData[] = [
   { label: "Meteo", href: "/meteo", icon: ChartSpline },
+  { label: "Gallery", href: "/gallery", icon: Images },
 ];
 
 function NavbarItem(props: NavbarItemProps) {
