@@ -1,7 +1,7 @@
 import { Provider } from "components/ui/provider";
 import Head from "next/head";
 import { AppProps } from "next/app";
-import { appWithTranslation } from "next-i18next";
+import { appWithTranslation } from "next-i18next/pages";
 
 const Website = ({ Component, pageProps }: AppProps) => {
   return (

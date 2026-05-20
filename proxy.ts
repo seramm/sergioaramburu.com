@@ -5,7 +5,7 @@ import { jwtVerify } from "jose"
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 const PROTECTED_ROUTER = ["/dashboard"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const token = request.cookies.get("access_token")?.value;
   const {pathname} = request.nextUrl;
   const isProtectedRoute = PROTECTED_ROUTER.some(route => pathname.startsWith(route));
