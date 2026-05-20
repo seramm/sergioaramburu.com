@@ -5,8 +5,7 @@ import { GitHubIcon, LinkedInIcon } from "./icons";
 
 export default function Footer() {
   return (
-    <Box as="footer" position="relative" paddingY="20">
-      <Box maxWidth="4xl" marginX="auto" paddingX="6">
+    <Box as="footer" width="100%" position="relative" paddingY="20">
         <Box>
           <Heading marginBottom="6" size="3xl">
             Sergio Aramburu
@@ -20,7 +19,6 @@ export default function Footer() {
             LinkedIn
           </LinkItem>
         </HStack>
-      </Box>
     </Box>
   );
 }

@@ -134,7 +134,7 @@ function LanguageSwitcher() {
     await router.push({ pathname, query }, asPath, { locale: lang });
   };
   return (
-    <Box mx={5} cursor="pointer">
+    <Box ml={5} cursor="pointer">
       {locale === "en" ? (
         <CircleFlag
           countryCode="es"
@@ -166,9 +166,9 @@ export default function NavBar() {
     <Flex
       as="header"
       paddingY="6"
-      maxWidth="4xl"
+      width="100%"
       marginX="auto"
-      paddingX="6"
+      // paddingX="6"
       align="center"
     >
       <Box
