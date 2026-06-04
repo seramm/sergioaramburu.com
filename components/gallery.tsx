@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Masonry } from "@mui/lab";
 import { useEffect, useState } from "react";
+import { sampleArray } from "utils/array";
 
 interface ImageProps {
   name: string;
@@ -27,27 +28,26 @@ interface GalleryFilterProps {
 }
 
 export function SmallGallery() {
-  const [posts, setPosts] = useState(null);
-
+  const [images, setImages] = useState<ImageProps[]>([]);
   useEffect(() => {
-    fetch("https://sergioaramburu.com/api/n_images/10")
+    fetch("https://sergioaramburu.com/api/gallery/db_images")
       .then((res) => res.json())
       .then((data) => {
-        setPosts(data);
+        const sample: ImageProps[] = sampleArray(data, 10);
+        setImages(sample);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
-  if (!posts) return <div>Loading...</div>;
+
   return (
     <Box>
       <Masonry columns={3} spacing={1}>
-        {posts.map((image, index) => (
+        {images.map((image, index) => (
           <Box key={index}>
             <Image
-              src={`https://sergioaramburu.com/api/images/${image}`}
-              alt={index}
+              src={`https://buru-gallery.b-cdn.net/small/${image.name}`}
               rounded="sm"
             />
           </Box>
