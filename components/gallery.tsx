@@ -6,6 +6,8 @@ import {
   VStack,
   Text,
   Separator,
+  Dialog,
+  Portal,
 } from "@chakra-ui/react";
 import { Masonry } from "@mui/lab";
 import { useEffect, useState } from "react";
@@ -109,6 +111,7 @@ export function GalleryFilter({
 export function BigGallery() {
   const [images, setImages] = useState<ImageProps[]>([]);
   const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [selectedImage, setSelectedImage] = useState<ImageProps | null>(null);
 
   useEffect(() => {
     fetch("https://sergioaramburu.com/api/gallery/db_images")
@@ -134,9 +137,14 @@ export function BigGallery() {
         <Separator />
         <Masonry columns={4} spacing={1}>
           {filteredImages.map((img, index) => (
-            <Box key={index}>
+            <Box
+              key={index}
+              cursor="pointer"
+              overflow="hidden"
+              onClick={() => setSelectedImage(img)}
+            >
               <Image
-                src={`https://buru-gallery.b-cdn.net/${img.name}`}
+                src={`https://buru-gallery.b-cdn.net/small/${img.name}`}
                 alt={img.name}
                 rounded="sm"
               />
@@ -144,6 +152,46 @@ export function BigGallery() {
           ))}
         </Masonry>
       </VStack>
+      <Dialog.Root
+        placement="center"
+        open={!!selectedImage}
+        onOpenChange={(details) => {
+          if (!details.open) setSelectedImage(null);
+        }}
+      >
+        <Portal>
+          <Dialog.Backdrop />
+
+          <Dialog.Positioner>
+            <Dialog.Content
+              bg="white"
+              w={{ base: "100vw", md: "90vw" }}
+              h={{ base: "100dvh", md: "90vh" }}
+              maxW="1400px"
+            >
+              <Dialog.CloseTrigger />
+
+              <Dialog.Body
+                p={2}
+                h="100%"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                {selectedImage && (
+                  <Image
+                    src={`https://buru-gallery.b-cdn.net/medium/${selectedImage.name}`}
+                    alt={selectedImage.name}
+                    w="100%"
+                    h="100%"
+                    objectFit="contain"
+                  />
+                )}
+              </Dialog.Body>
+            </Dialog.Content>
+          </Dialog.Positioner>
+        </Portal>
+      </Dialog.Root>
     </Box>
   );
 }
