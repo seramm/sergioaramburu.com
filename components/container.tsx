@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Container({ children, size="4xl" }: { children: React.ReactNode, size?: string | number }) {
   return (
-    <Box width={size} marginX="auto" paddingX="6">
+    <Box maxWidth={size} width="100%" marginX="auto" paddingX="6">
       <NavBar />
       <Box as="main" id="content" position="relative" zIndex={1} pb={6}>
         {children}
