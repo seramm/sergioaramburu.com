@@ -3,15 +3,14 @@
     "title": "UVigo Motorsport",
     "description": [
       "UVigo Motorsport es un equipo de Formula Student de la Universidade de Vigo. He sido miembro del departamento de Autónomo durante año y medio, donde colaboré en el desarrollo de un sistema autónomo para competir en evento de Formula Student. Gracias a esta experiencia pude ver de primera mano el mundo del desarrollo de software. En UVigo Motorsport, fue donde tuve mi primer toma de contacto con Python mientras usaba ROS para desarrollar el sistema."
-    ],
-    "button-text": "UVigo Motorsport",
-    "button-link": "https://uvigomotorsport.com"
+    ]
   },
   "website": {
     "title": "Esta Web",
     "description": [
-      "Mi idea inicial con esta web era poder tener un portfolio accesible en todo momento. Con el paso del tiempo, me di cuenta que podía integrar nuevos proyectos y ampliar mis conocimientos.",
-      "Comencé centrandome en el despliegue de esta página con NextJS y Docker. Una vez que tuve algo básico decidí añadir una API para incluir y aprender nuevas funcionalidades. A día de hoy estoy centrado en la Miniestación Meteorológica usando D3.js para visualizar los datos."
+      "Mi idea inicial con esta web era tener un portfolio accesible en todo momento. Con el tiempo, decidí ampliarla e ir integrando nuevos proyectos y tecnologías con las que quería aprender.",
+      "Empecé centrándome en el despliegue con NextJS y Docker. Cuando tuve una base sólida, añadí una API con FastAPI para explorar nuevas funcionalidades, y más adelante trabajé en la visualización de datos de la Miniestación Meteorológica con D3.js.",
+      "Llevo tiempo apasionado por la fotografía, así que decidí incluir una galería en la web. Al gestionarla me di cuenta de que acceder al backend a través de herramientas de desarrollador no era práctico, así que construí un dashboard para administrar las imágenes y sus metadatos, junto con su propio sistema de autenticación."
     ]
   }
 }

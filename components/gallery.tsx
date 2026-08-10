@@ -82,11 +82,17 @@ export function GalleryFilter({
   };
 
   return (
-    <Box p={3} minWidth="md" borderWidth="1px" borderRadius={10}>
+    <Box
+      p={3}
+      minWidth={{ base: "0", md: "md" }}
+      width="100%"
+      borderWidth="1px"
+      borderRadius={10}
+    >
       <Text fontWeight="bold" textStyle="md" mb="5px">
         Tags
       </Text>
-      <HStack>
+      <HStack wrap="wrap">
         {tags.map((tag, index) => (
           <CheckboxCard.Root
             key={index}

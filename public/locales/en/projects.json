@@ -3,15 +3,14 @@
     "title": "UVigo Motorsport",
     "description": [
       "UVigo Motorsport is a Formula Student team based at the University of Vigo. I have been a part of the Driverless team for a year and a half, where I contributed to the development of an Autonomous System for competing in Formula Student events. This experience gave me valuable insight into the world of software development. During my time with UVigo Motorsport, I had my first hands-on experience with Python, working with the Robot Operating System (ROS) to build real-world applications."
-    ],
-    "button-text": "UVigo Motorsport",
-    "button-link": "https://uvigomotorsport.com"
+    ]
   },
   "website": {
     "title": "This Website",
     "description": [
-      "I created this website as a convenient way to keep my portfolio easily accessible at all times. Over time, I began expanding it by integrating various projects.",
-      "Initially, I focused on managing the website's deployment using Docker. Then, I decided to build an API with FastAPI, aiming to explore new functionality and improve my skills. Currently, I'm working on visualizations for the Ambient Monitoring project using D3.js."
+      "I created this website as a way to keep my portfolio accessible at all times. Over time, I decided to expand it, integrating new projects and technologies I wanted to learn.",
+      "I started by focusing on deployment with Next.js and Docker. Once I had a solid base, I added an API with FastAPI to explore new functionality, and later worked on data visualization for the Ambient Monitoring project using D3.js.",
+      "I've been passionate about photography for a long time, so I decided to add a gallery to the site. While managing it, I realized accessing the backend through developer tools wasn't practical, so I built a dashboard to manage the images and their metadata, along with its own authentication system."
     ]
   }
 }
