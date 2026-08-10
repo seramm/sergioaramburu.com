@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Masonry } from "@mui/lab";
 import { useEffect, useState } from "react";
-import { sampleArray } from "utils/array";
+import { sampleArray, shuffleArray } from "utils/array";
 
 interface ImageProps {
   name: string;
@@ -123,7 +123,7 @@ export function BigGallery() {
     fetch("https://sergioaramburu.com/api/gallery/db_images")
       .then((res) => res.json())
       .then((data) => {
-        setImages(data);
+        setImages(shuffleArray(data));
       })
       .catch((err) => {
         console.log(err.message);
