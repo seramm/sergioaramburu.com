@@ -54,7 +54,14 @@ function NavbarItem(props: NavbarItemProps) {
     >
       <Link href={data.href}>
         <Icon as={data.icon} size="md" />
-        <Text fontFamily="heading">{children}</Text>
+        <Text
+          fontFamily="heading"
+          textDecoration={active ? "underline" : "none"}
+          textDecorationThickness={active ? "2px" : undefined}
+          textUnderlineOffset="6px"
+        >
+          {children}
+        </Text>
       </Link>
     </HStack>
   );
@@ -78,6 +85,7 @@ function NavbarItems(props: StackProps) {
 }
 
 function MobileNavbarItems(props: StackProps) {
+  const { asPath } = useRouter();
   return (
     <Stack
       separator={<StackSeparator borderColor="gray.900" />}
@@ -86,7 +94,12 @@ function MobileNavbarItems(props: StackProps) {
       {...props}
     >
       {items.map((item) => (
-        <NavbarItem key={item.label} data={item} large>
+        <NavbarItem
+          key={item.label}
+          data={item}
+          active={asPath.startsWith(item.href)}
+          large
+        >
           {item.label}
         </NavbarItem>
       ))}
